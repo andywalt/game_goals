@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Game" representedClassName="Game" syncable="YES">
+        <attribute name="gameDescription" optional="YES" attributeType="String"/>
+        <attribute name="gameName" optional="YES" attributeType="String"/>
+        <relationship name="goal" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Goal" inverseName="goalOfGame" inverseEntity="Goal"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="gameName"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Goal" representedClassName="Goal" parentEntity="Game" syncable="YES">
+        <attribute name="goalComplete" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="goalName" optional="YES" attributeType="String"/>
+        <relationship name="goalOfGame" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Game" inverseName="goal" inverseEntity="Game"/>
+    </entity>
+    <elements>
+        <element name="Game" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="Goal" positionX="-63" positionY="0" width="128" height="88"/>
+    </elements>
+</model>
