@@ -9,7 +9,6 @@
 import SwiftUI
 import CoreData
 
-
 struct GameGoalsDetail: View {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Game.entity(), sortDescriptors: []) var games: FetchedResults<Game>
@@ -31,7 +30,7 @@ struct GameGoalsDetail: View {
                 self.showingAddGoal.toggle()
             }
                 .sheet(isPresented: $showingAddGoal) {
-                    AddGameGoalsView().environment(\.managedObjectContext, self.moc)
+                    AddGameGoalsView(game: self.game).environment(\.managedObjectContext, self.moc)
             }
         }
     }
