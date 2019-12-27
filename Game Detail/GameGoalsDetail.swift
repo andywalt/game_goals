@@ -22,6 +22,7 @@ struct GameGoalsDetail: View {
     var body: some View {
         VStack {
             Text(self.game.wrappedGameName)
+            Text(self.game.wrappedGameDescription)
             ForEach(game.goalArray, id: \.self)  { goal in
                 Text(goal.wrappedGoalName)
                 }
@@ -38,18 +39,16 @@ struct GameGoalsDetail: View {
 
 
 
-#if DEBUG
+
 struct GameGoalsDetail_Previews: PreviewProvider {
     static var previews: some View {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let newGame = Game.init(context: context)
+        let newGame = Game(context: context)
         newGame.gameName = "Apex Legends"
         newGame.gameDescription = "Maybe this will work"
-        newGame.goal = ["Goal 1", "Goal 2"]
         return GameGoalsDetail(game: newGame).environment(\.managedObjectContext, context)
     }
 }
-#endif
 
 
     
