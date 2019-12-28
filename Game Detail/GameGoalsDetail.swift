@@ -15,7 +15,7 @@ struct GameGoalsDetail: View {
     
     @State private var showingAddGoal = false
     
-    @State private var goalComplete = false
+    @State private var goalComplete : Bool = false
     
     @ObservedObject var game: Game
     
@@ -25,7 +25,21 @@ struct GameGoalsDetail: View {
             Text(self.game.gameDescription ?? "No Game Description")
             List {
                 ForEach(game.goalArray, id: \.self)  { goal in
-                Text(goal.goalName ?? "No Goal Name")
+                    HStack {
+                        Text(goal.goalName ?? "No Goal Name")
+                        Spacer()
+                        Button(action: {
+                            self.goalComplete.toggle()
+                        }) {
+                            if self.goalComplete == true {
+                                Image(systemName: "app")
+                            } else {
+                                Image(systemName: "checkmark.square.fill")
+                                .foregroundColor(Color.green)
+                            }
+                        }
+                        
+                    }
                 }
             }
             Button("Add Game Goal") {
@@ -50,17 +64,3 @@ struct GameGoalsDetail_Previews: PreviewProvider {
         return GameGoalsDetail(game: newGame).environment(\.managedObjectContext, context)
     }
 }
-
-
-    
-    /*
-    static var previews: some View {
-        let game = Game(context: moc)
-        game.wrappedGameName = "Test Game"
-        game.wrappedGameDescription = "Test Game Description"
-        game.goalArray = ["Goal 1", "Goal 2"]
-        
-        GameGoalsDetail(game: game)
-    }
-}
- */

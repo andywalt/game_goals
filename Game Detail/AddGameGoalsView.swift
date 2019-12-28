@@ -32,6 +32,7 @@ struct AddGameGoalsView: View {
                     Button("Add Goal") {
                         let newGoal = Goal(context: self.moc)
                         newGoal.goalName = self.goalName
+                        newGoal.goalComplete = false
                         newGoal.goalOfGame = self.game
                         
                         
