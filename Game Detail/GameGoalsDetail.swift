@@ -17,16 +17,17 @@ struct GameGoalsDetail: View {
     
     @State private var goalComplete = false
     
-    let game: Game
+    @ObservedObject var game: Game
     
     var body: some View {
         VStack {
-            Text(self.game.wrappedGameName)
-            Text(self.game.wrappedGameDescription)
-            ForEach(game.goalArray, id: \.self)  { goal in
-                Text(goal.wrappedGoalName)
+            Text(self.game.gameName ?? "No Game Name")
+            Text(self.game.gameDescription ?? "No Game Description")
+            List {
+                ForEach(game.goalArray, id: \.self)  { goal in
+                Text(goal.goalName ?? "No Goal Name")
                 }
-            
+            }
             Button("Add Game Goal") {
                 self.showingAddGoal.toggle()
             }

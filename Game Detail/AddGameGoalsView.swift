@@ -19,7 +19,7 @@ struct AddGameGoalsView: View {
     
     @State private var goalName = ""
     
-    var game: Game
+    @ObservedObject var game: Game
     
     var body: some View {
         NavigationView {
@@ -31,7 +31,8 @@ struct AddGameGoalsView: View {
                     Spacer()
                     Button("Add Goal") {
                         let newGoal = Goal(context: self.moc)
-                        newGoal.goalName? = self.$goalName
+                        newGoal.goalName = self.goalName
+                        newGoal.goalOfGame = self.game
                         
                         
                         //newGoal.goalOfGame?.gameName = "Testing"
@@ -49,7 +50,7 @@ struct AddGameGoalsView: View {
     }
 }
 
-#if DEBUG
+#if !DEBUG
 struct AddGameGoalsView_Previews: PreviewProvider {
     static var previews: some View {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -57,8 +58,9 @@ struct AddGameGoalsView_Previews: PreviewProvider {
         newGoal.goalName = "Goal 1"
         newGoal.goalComplete = false
         newGoal.goalOfGame = Game(context: context)
-        newGoal.goalOfGame?.gameName = "Testing"
-        return AddGameGoalsView(game: newGoal(goal:)).environment(\.managedObjectContext, context)
+        newGoal.goalOfGame?.gameName = "Test Game 1"
+        newGoal.goalOfGame?.gameDescription = "Maybe this will work"
+        return AddGameGoalsView(game: newGoal).environment(\.managedObjectContext, context)
     }
 }
 #endif
