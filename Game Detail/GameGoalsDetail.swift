@@ -28,9 +28,13 @@ struct GameGoalsDetail: View {
                     HStack {
                         Text(goal.goalName ?? "No Goal Name")
                         Spacer()
+                        Image(systemName: self.goalComplete ? "checkmark.square.fill" : "app").onTapGesture {
+                            self.goalComplete.toggle()
+                            print(self.goalComplete)
+                        }
                         Button(action: {
                             self.goalComplete.toggle()
-                        }) {
+                            }) {
                             if self.goalComplete == true {
                                 Image(systemName: "app")
                             } else {
@@ -51,8 +55,6 @@ struct GameGoalsDetail: View {
         }
     }
 }
-
-
 
 
 struct GameGoalsDetail_Previews: PreviewProvider {
