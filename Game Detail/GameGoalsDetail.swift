@@ -21,29 +21,11 @@ struct GameGoalsDetail: View {
     
     var body: some View {
         VStack {
-            Text(self.game.gameName ?? "No Game Name")
-            Text(self.game.gameDescription ?? "No Game Description")
+            Text(self.game.gameName ?? "No Game Name").font(.title)
+            Text(self.game.gameDescription ?? "No Game Description").font(.subheadline)
             List {
                 ForEach(game.goalArray, id: \.self)  { goal in
-                    HStack {
-                        Text(goal.goalName ?? "No Goal Name")
-                        Spacer()
-                        Image(systemName: self.goalComplete ? "checkmark.square.fill" : "app").onTapGesture {
-                            self.goalComplete.toggle()
-                            print(self.goalComplete)
-                        }
-                        Button(action: {
-                            self.goalComplete.toggle()
-                            }) {
-                            if self.goalComplete == true {
-                                Image(systemName: "app")
-                            } else {
-                                Image(systemName: "checkmark.square.fill")
-                                .foregroundColor(Color.green)
-                            }
-                        }
-                        
-                    }
+                    GameGoalListView(game: self.game).environment(\.managedObjectContext, self.moc)
                 }
             }
             Button("Add Game Goal") {

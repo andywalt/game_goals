@@ -51,7 +51,7 @@ struct AddGameGoalsView: View {
     }
 }
 
-#if !DEBUG
+
 struct AddGameGoalsView_Previews: PreviewProvider {
     static var previews: some View {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -61,7 +61,6 @@ struct AddGameGoalsView_Previews: PreviewProvider {
         newGoal.goalOfGame = Game(context: context)
         newGoal.goalOfGame?.gameName = "Test Game 1"
         newGoal.goalOfGame?.gameDescription = "Maybe this will work"
-        return AddGameGoalsView(game: newGoal).environment(\.managedObjectContext, context)
+        return AddGameGoalsView(game: Game()).environment(\.managedObjectContext, context)
     }
 }
-#endif
