@@ -32,9 +32,9 @@ extension Game {
     public var goalArray: [Goal] {
         let set = goal as? Set<Goal> ?? []
         
-        return set.sorted {
-            $0.wrappedGoalName < $1.wrappedGoalName
-        }
+        return set.sorted(by: { (lhs, rhs) -> Bool in
+            return lhs.goalComplete == false && rhs.goalComplete != false
+        })
     }
 
 }

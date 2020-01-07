@@ -25,7 +25,7 @@ struct GameGoalsDetail: View {
                 ForEach(game.goalArray, id: \.self) { goal in
                     GameGoalListView(goal: goal)
                 }
-                .onDelete(perform: deleteGoal)
+                    .onDelete(perform: deleteGoal)
             }
             Button(action: {
                 self.showingAddGoal.toggle()
