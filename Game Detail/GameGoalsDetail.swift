@@ -11,6 +11,7 @@ import SwiftUI
 
 struct GameGoalsDetail: View {
     @Environment(\.managedObjectContext) var moc
+    @FetchRequest(entity: Goal.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Goal.goalComplete, ascending: true)]) var goals: FetchedResults<Goal>
     
     @State private var showingAddGoal = false
         
@@ -24,6 +25,7 @@ struct GameGoalsDetail: View {
                 ForEach(game.goalArray, id: \.self) { goal in
                     GameGoalListView(goal: goal)
                 }
+                .onDelete(perform: deleteGoal)
             }
             Button(action: {
                 self.showingAddGoal.toggle()
@@ -37,6 +39,13 @@ struct GameGoalsDetail: View {
                 AddGameGoalsView(game: self.game).environment(\.managedObjectContext, self.moc)
             }
         }
+    }
+    func deleteGoal(at offsets: IndexSet) {
+        for index in offsets {
+            let goal = goals[index]
+            moc.delete(goal)
+        }
+        try? moc.save()
     }
 }
 
