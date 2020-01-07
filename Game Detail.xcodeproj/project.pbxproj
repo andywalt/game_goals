@@ -30,7 +30,7 @@
 		F5B8BD5B23A2276700173802 /* Game+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		F5B8BD5C23A2276700173802 /* Goal+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		F5B8BD5D23A2276700173802 /* Goal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		F5E28CBE23A1ADFA006D4A3C /* Game Detail.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Game Detail.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5E28CBE23A1ADFA006D4A3C /* Game Goals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Game Goals.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5E28CC123A1ADFA006D4A3C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5E28CC323A1ADFA006D4A3C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		F5E28CC623A1ADFA006D4A3C /* Game_Detail.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Game_Detail.xcdatamodel; sourceTree = "<group>"; };
@@ -66,7 +66,7 @@
 		F5E28CBF23A1ADFA006D4A3C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F5E28CBE23A1ADFA006D4A3C /* Game Detail.app */,
+				F5E28CBE23A1ADFA006D4A3C /* Game Goals.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -119,7 +119,7 @@
 			);
 			name = "Game Detail";
 			productName = "Game Detail";
-			productReference = F5E28CBE23A1ADFA006D4A3C /* Game Detail.app */;
+			productReference = F5E28CBE23A1ADFA006D4A3C /* Game Goals.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -328,10 +328,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.Game-Detail";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.example.Game-Goals";
+				PRODUCT_NAME = "Game Goals";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -347,10 +347,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.Game-Detail";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.example.Game-Goals";
+				PRODUCT_NAME = "Game Goals";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

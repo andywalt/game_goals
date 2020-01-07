@@ -35,8 +35,6 @@ struct AddGameGoalsView: View {
                         newGoal.goalComplete = false
                         newGoal.goalOfGame = self.game
                         
-                        
-                        //newGoal.goalOfGame?.gameName = "Testing"
                         do {
                             try self.moc.save()
                             self.presentationMode.wrappedValue.dismiss()

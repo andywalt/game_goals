@@ -13,28 +13,24 @@ import CoreData
 struct GameGoalListView: View {
     
     @Environment(\.managedObjectContext) var moc
-    @FetchRequest(entity: Game.entity(), sortDescriptors: []) var games: FetchedResults<Game>
     
-    @ObservedObject var game: Game
-    
-    @State private var goalComplete : Bool = false
-    
+    @ObservedObject var goal: Goal
     
     var body: some View {
         VStack {
-            ForEach(game.goalArray, id: \.goalName) { goal in
-                HStack {
-                    Text(goal.goalName ?? "No Goal Name")
-                    Spacer()
-                    Text("Complete:").font(.caption)
-                    Image(systemName: self.goalComplete ? "checkmark.square.fill" : "app").onTapGesture {
-                        self.goalComplete.toggle()
-                        print(self.goalComplete)
-                    }
+            HStack {
+                Text(goal.goalName ?? "No Goal Name")
+                Spacer()
+                Text("Complete:").font(.caption)
+                Image(systemName: self.goal.goalComplete ? "checkmark.square.fill" : "app").onTapGesture {
+                    self.goal.goalComplete.toggle()
+                    print(self.goal.goalComplete)
                 }
             }
         }
-        
+        .onReceive(self.goal.objectWillChange) {
+            try? self.moc.save()
+        }
     }
 }
 
@@ -44,6 +40,6 @@ struct GameGoalListView_Previews: PreviewProvider {
         let newGame = Game(context: context)
         newGame.gameName = "Apex Legends"
         newGame.gameDescription = "Maybe this will work"
-        return GameGoalListView(game: newGame).environment(\.managedObjectContext, context)
+        return GameGoalListView(goal: Goal()).environment(\.managedObjectContext, context)
     }
 }

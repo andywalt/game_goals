@@ -28,7 +28,7 @@ struct ContentView: View {
                         }
                     }
                 }
-            .onDelete(perform: removeGames)
+                .onDelete(perform: removeGames)
             }
             .navigationBarTitle("Game Goals")
             .navigationBarItems(leading: EditButton(), trailing: Button("Add") {

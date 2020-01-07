@@ -7,16 +7,13 @@
 //
 
 import SwiftUI
-import CoreData
+
 
 struct GameGoalsDetail: View {
     @Environment(\.managedObjectContext) var moc
-    @FetchRequest(entity: Game.entity(), sortDescriptors: []) var games: FetchedResults<Game>
     
     @State private var showingAddGoal = false
-    
-    @State private var goalComplete : Bool = false
-    
+        
     @ObservedObject var game: Game
     
     var body: some View {
@@ -24,19 +21,25 @@ struct GameGoalsDetail: View {
             Text(self.game.gameName ?? "No Game Name").font(.title)
             Text(self.game.gameDescription ?? "No Game Description").font(.subheadline)
             List {
-                ForEach(game.goalArray, id: \.self)  { goal in
-                    GameGoalListView(game: self.game).environment(\.managedObjectContext, self.moc)
+                ForEach(game.goalArray, id: \.self) { goal in
+                    GameGoalListView(goal: goal)
                 }
             }
-            Button("Add Game Goal") {
+            Button(action: {
                 self.showingAddGoal.toggle()
+            }) {
+                HStack {
+                    Image(systemName: "plus")
+                    Text("Add Goal")
+                }
             }
-                .sheet(isPresented: $showingAddGoal) {
-                    AddGameGoalsView(game: self.game).environment(\.managedObjectContext, self.moc)
+            .sheet(isPresented: $showingAddGoal) {
+                AddGameGoalsView(game: self.game).environment(\.managedObjectContext, self.moc)
             }
         }
     }
 }
+
 
 
 struct GameGoalsDetail_Previews: PreviewProvider {
