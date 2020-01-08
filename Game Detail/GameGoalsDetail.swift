@@ -11,6 +11,8 @@ import SwiftUI
 
 struct GameGoalsDetail: View {
     @Environment(\.managedObjectContext) var moc
+    
+    // Added this FetchRequest so Goals can be found in deleteGoal function. Still not sure how to access the index of the GameGoalListView goal or the inherited game goal from the view in the managedObjectContext.
     @FetchRequest(entity: Goal.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Goal.goalComplete, ascending: true)]) var goals: FetchedResults<Goal>
     
     @State private var showingAddGoal = false
@@ -40,12 +42,17 @@ struct GameGoalsDetail: View {
             }
         }
     }
+    // trying to delete the goal selected but it's deleting random goals and even goals in other games.
     func deleteGoal(at offsets: IndexSet) {
         for index in offsets {
-            let goal = goals[index]
-            moc.delete(goal)
+            let goal = self.goals[index]
+            self.moc.delete(goal)
         }
-        try? moc.save()
+        do {
+            try moc.save()
+        } catch {
+            print(error)
+        }
     }
 }
 
