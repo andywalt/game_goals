@@ -15,8 +15,8 @@ struct GameGoalsDetail: View {
     /*
      // You just want the goals associated with this one Game, and the Game holds a reference to those goals in the form of its gameGoals array. If you create an array of goals from a fetchrequest, you would need to add as predicate to filter for goals where their Game matches this Game. Additionally, the resulting array may be sorted differently to your gameGoals array which becomes perilous if deleting is going to happen by index reference.
      
-     Conveniently, we can just use the goalArray property directly without needing to create another source of truth.
-     
+     Conveniently, we can just use the goalArray property directly without needing to create another source of truth. It looks like you already sort that array in your model. Right now when the view appears the sorting is correct, though the items don't auto-resort as you click the checkmark buttons. You could probably use .onRecieve and objectWillChange for that, similar to how you can use it to save the managed object context when its tapped :) 
+          
      Also, I was making this exact same error in my own app and I only discovered it thanks to debugging this example here!
      
      
