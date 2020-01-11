@@ -32,17 +32,11 @@ extension Game {
     public var goalArray: [Goal] {
         let set = goal as? Set<Goal> ?? []
         
-        // Previous sorting by GoalName
-        // return set.sorted {
-        //    $0.wrappedGoalName < $1.wrappedGoalName }
-        // lhs.goalComplete == false && rhs.goalComplete != false
-        
-        // Added this so that the goalArray would sort by Completed or not Completed
+        // Checks to see if the goalComplete are the same, then sorts by goalName, if not sorts by complete or not.
         return set.sorted(by: { (lhs, rhs) -> Bool in
             if lhs.goalComplete == rhs.goalComplete { return lhs.wrappedGoalName < rhs.wrappedGoalName}
             return lhs.goalComplete == false && rhs.goalComplete != false
         })
-        // I wanted to add multiple sortings here so that it would sort by Complete first and then by Goal Name (eventually considering adding date created so most recent is visible first)
     }
 
 }
