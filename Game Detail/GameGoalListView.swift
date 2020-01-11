@@ -19,7 +19,11 @@ struct GameGoalListView: View {
     var body: some View {
         VStack {
             HStack {
-                Text(goal.goalName ?? "No Goal Name")
+                if goal.goalComplete == true {
+                    Text(goal.goalName ?? "No Goal Name").strikethrough()
+                } else {
+                    Text(goal.goalName ?? "No Goal Name")
+                }
                 Spacer()
                 Text("Complete:").font(.caption)
                 Image(systemName: self.goal.goalComplete ? "checkmark.square.fill" : "app").onTapGesture {

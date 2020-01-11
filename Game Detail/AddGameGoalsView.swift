@@ -30,6 +30,7 @@ struct AddGameGoalsView: View {
                 HStack {
                     Spacer()
                     Button("Add Goal") {
+                        guard self.goalName != "" else {return}
                         let newGoal = Goal(context: self.moc)
                         newGoal.goalName = self.goalName
                         newGoal.goalComplete = false
@@ -45,6 +46,18 @@ struct AddGameGoalsView: View {
                 }
             }
             .navigationBarTitle("Add Game Goal")
+            .navigationBarItems(trailing:
+            HStack {
+                Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }) {
+                    Text("Cancel")
+                }
+                .padding(10)
+                .foregroundColor(Color.white)
+                .background(Color.red)
+                .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
+            })
         }
     }
 }

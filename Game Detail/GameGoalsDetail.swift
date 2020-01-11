@@ -35,7 +35,6 @@ struct GameGoalsDetail: View {
                     }
                 }
             }
-            .id(UUID())
             Button(action: {
                 self.showingAddGoal.toggle()
             }) {

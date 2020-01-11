@@ -18,6 +18,7 @@ struct AddGameView: View {
     
     @State private var gameName = ""
     @State private var gameDescription = ""
+    @State private var showingAlert = false
     
     var body: some View {
         NavigationView {
@@ -54,8 +55,6 @@ struct AddGameView: View {
                     .foregroundColor(Color.white)
                     .background(Color.red)
                     .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
-                    
-                    
                 })
         }
     }

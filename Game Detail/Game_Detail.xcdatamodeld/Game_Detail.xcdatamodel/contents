@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15508" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Game" representedClassName=".Game" syncable="YES">
-        <attribute name="gameDescription" optional="YES" attributeType="String"/>
-        <attribute name="gameName" optional="YES" attributeType="String"/>
+        <attribute name="gameDescription" optional="YES" attributeType="String" maxValueString="100"/>
+        <attribute name="gameName" optional="YES" attributeType="String" maxValueString="60"/>
         <relationship name="goal" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Goal" inverseName="goalOfGame" inverseEntity="Goal"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
@@ -11,8 +11,8 @@
         </uniquenessConstraints>
     </entity>
     <entity name="Goal" representedClassName=".Goal" syncable="YES">
-        <attribute name="goalComplete" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="goalName" optional="YES" attributeType="String"/>
+        <attribute name="goalComplete" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="goalName" optional="YES" attributeType="String" maxValueString="140"/>
         <relationship name="goalOfGame" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Game" inverseName="goal" inverseEntity="Game"/>
     </entity>
     <elements>
