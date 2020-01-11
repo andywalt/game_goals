@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F50722D623BE910B00DEE573 /* GameGoalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50722D523BE910B00DEE573 /* GameGoalListView.swift */; };
+		F50722E023C939B300DEE573 /* PressStart.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F50722DF23C939B300DEE573 /* PressStart.ttf */; };
 		F5B8BD5E23A2276700173802 /* Game+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8BD5A23A2276700173802 /* Game+CoreDataClass.swift */; };
 		F5B8BD5F23A2276700173802 /* Game+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8BD5B23A2276700173802 /* Game+CoreDataProperties.swift */; };
 		F5B8BD6023A2276700173802 /* Goal+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8BD5C23A2276700173802 /* Goal+CoreDataClass.swift */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		F50722D523BE910B00DEE573 /* GameGoalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameGoalListView.swift; sourceTree = "<group>"; };
+		F50722DF23C939B300DEE573 /* PressStart.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PressStart.ttf; sourceTree = "<group>"; };
 		F5B8BD5A23A2276700173802 /* Game+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		F5B8BD5B23A2276700173802 /* Game+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		F5B8BD5C23A2276700173802 /* Goal+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -78,16 +80,17 @@
 				F5B8BD5B23A2276700173802 /* Game+CoreDataProperties.swift */,
 				F5B8BD5C23A2276700173802 /* Goal+CoreDataClass.swift */,
 				F5B8BD5D23A2276700173802 /* Goal+CoreDataProperties.swift */,
-				F5E28CE023A1F2F0006D4A3C /* AddGameView.swift */,
 				F5E28CC123A1ADFA006D4A3C /* AppDelegate.swift */,
 				F5E28CC323A1ADFA006D4A3C /* SceneDelegate.swift */,
 				F5E28CC823A1ADFA006D4A3C /* ContentView.swift */,
+				F50722DF23C939B300DEE573 /* PressStart.ttf */,
 				F5E28CCA23A1ADFB006D4A3C /* Assets.xcassets */,
 				F5E28CCF23A1ADFB006D4A3C /* LaunchScreen.storyboard */,
 				F5E28CD223A1ADFB006D4A3C /* Info.plist */,
 				F5E827D923A2B193000FF2D8 /* GameGoalsDetail.swift */,
 				F50722D523BE910B00DEE573 /* GameGoalListView.swift */,
 				F5E827DB23A2D66D000FF2D8 /* AddGameGoalsView.swift */,
+				F5E28CE023A1F2F0006D4A3C /* AddGameView.swift */,
 				F5E28CC523A1ADFA006D4A3C /* Game_Detail.xcdatamodeld */,
 				F5E28CCC23A1ADFB006D4A3C /* Preview Content */,
 			);
@@ -161,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5E28CD123A1ADFB006D4A3C /* LaunchScreen.storyboard in Resources */,
+				F50722E023C939B300DEE573 /* PressStart.ttf in Resources */,
 				F5E28CCE23A1ADFB006D4A3C /* Preview Assets.xcassets in Resources */,
 				F5E28CCB23A1ADFB006D4A3C /* Assets.xcassets in Resources */,
 			);

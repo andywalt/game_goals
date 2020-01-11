@@ -16,26 +16,35 @@ struct ContentView: View {
     @State private var showingAddGame = false
     
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(games, id: \.self) { games in
-                    NavigationLink(destination: GameGoalsDetail(game: games)) {
-                        VStack(alignment: .leading) {
-                            Text(games.gameName ?? "Unknown Game")
-                                .font(.title)
-                            Text(games.gameDescription ?? "Unknown Game Description")
-                                .font(.subheadline)
+        GeometryReader { geometry in
+            NavigationView {
+                List {
+                    ForEach(self.games, id: \.self) { games in
+                        NavigationLink(destination: GameGoalsDetail(game: games)) {
+                            VStack(alignment: .leading) {
+                                Text(games.gameName ?? "Unknown Game")
+                                    .font(Font.custom("PressStart2p", size: 20))
+                                Text(games.gameDescription ?? "Unknown Game Description")
+                                    .font(Font.custom("Avenir-Light", size: 15))
+                            }
                         }
                     }
+                    .onDelete(perform: self.removeGames)
                 }
-                .onDelete(perform: removeGames)
-            }
-            .navigationBarTitle("Game Goals")
-            .navigationBarItems(leading: EditButton(), trailing: Button("Add") {
-                self.showingAddGame.toggle()
-            })
-                .sheet(isPresented: $showingAddGame) {
-                    AddGameView().environment(\.managedObjectContext, self.moc)
+                //.navigationBarTitle("Game Goals")
+                .navigationBarItems(leading:
+                    HStack {
+                        EditButton()
+                        Image("Game Goals App Logo")
+                            .resizable()
+                            .frame(width: 60, height: 60)
+                            .padding(.leading, (geometry.size.width / 2.0) + -90)
+                    }, trailing: Button("Add") {
+                    self.showingAddGame.toggle()
+                })
+                    .sheet(isPresented: self.$showingAddGame) {
+                        AddGameView().environment(\.managedObjectContext, self.moc)
+                }
             }
         }
     }
