@@ -11,6 +11,7 @@ import SwiftUI
 
 struct GameGoalsDetail: View {
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.editMode) var mode
     
     @State private var showingAddGoal = false
         
@@ -18,8 +19,15 @@ struct GameGoalsDetail: View {
     
     var body: some View {
         VStack {
-            Text(self.game.gameName ?? "No Game Name").font(.title)
-            Text(self.game.gameDescription ?? "No Game Description").font(.subheadline)
+            HStack {
+                EditButton()
+            }
+            if self.mode?.wrappedValue == .inactive {
+                Text(self.game.gameName ?? "No Game Name").font(.title)
+                Text(self.game.gameDescription ?? "No Game Description").font(.subheadline)
+            } else {
+                EditGameView(game: Game)
+            }
             List {
                 ForEach(game.goalArray, id: \.self) { goal in
                     GameGoalListView(goal: goal)
