@@ -28,6 +28,12 @@ struct GameGoalsDetail: View {
             } else {
                 // I think this is how it needs to be called but not sure if I need
                 EditGameView(game: Game)
+                    .onAppear {
+                        // I think this is where the onAppear goes but I'd imagine that I have to create a whole method like self.updatedGameInfo.gameName = self.game.gameName & a  self.updatedGameInfo = self.game.gameDescription
+                    }
+                    .onDisappear {
+                        // self.game.gameName = self.updatedGameInfo.gameName
+                    }
             }
             List {
                 ForEach(game.goalArray, id: \.self) { goal in
