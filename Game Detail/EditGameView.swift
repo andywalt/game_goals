@@ -12,6 +12,9 @@ struct EditGameView: View {
     
     @Environment(\.managedObjectContext) var moc
     
+    // not sure I'll need this
+    //@ObservedObject var game: Game
+    
     @State var newGameName = ""
     @State var newGameDescription = ""
 
@@ -26,7 +29,7 @@ struct EditGameView: View {
             }
             HStack {
                 Button("Update Game") {
-                    init(game: Game) {
+                    self.init(game: Game) {
                     self.newGameName = game.gameName
                     self.newGameDescription = game.gameDescription
                         

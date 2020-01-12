@@ -26,6 +26,7 @@ struct GameGoalsDetail: View {
                 Text(self.game.gameName ?? "No Game Name").font(.title)
                 Text(self.game.gameDescription ?? "No Game Description").font(.subheadline)
             } else {
+                // I think this is how it needs to be called but not sure if I need
                 EditGameView(game: Game)
             }
             List {
