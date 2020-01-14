@@ -15,6 +15,8 @@ class EditViewModel: ObservableObject {
     @Published var newGameName: String
     @Published var newGameDescription: String
     @Published var game: Game
+    // moved this Bool into the view model
+    @Published var showingEdit: Bool = false
     
     init(game: Game) {
         self.game = game
@@ -91,6 +93,8 @@ struct EditGameView: View {
                         } catch {
                             print(error.localizedDescription)
                         }
+                    // Tell the view model to dismiss the Edit screen
+                    self.model.showingEdit = false
 //                    }
 //                }
             }

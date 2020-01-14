@@ -14,10 +14,19 @@ struct GameGoalsDetail: View {
 //    @Environment(\.editMode) var mode // You can handle this as a view modifier on your List below :)
     
     @State private var showingAddGoal = false
-        
-    @ObservedObject var game: Game
-    @State var showingEdit: Bool = false // Only needed if not using the NavigationLink approach
     
+    // Adding the view model to this view so that we can use it on both views
+    @ObservedObject var model: EditViewModel
+    @ObservedObject var game: Game
+    
+    // I'm moving this into the view model so that we can access it from both views
+//    @State var showingEdit: Bool = false // Only needed if not using the NavigationLink approach
+    
+    init(game: Game) {
+        // Use init() here to let us access the game and use it to create our view model. If we tried to do this just in our declarations without putting it in Init we would get an error that we can't use self before stored properties are initialised
+        self.game = game
+        self.model = EditViewModel(game: game)
+    }
     var body: some View {
         VStack {
 //            HStack {
@@ -25,12 +34,12 @@ struct GameGoalsDetail: View {
 //                EditButton()
                 // Try just creating a simple bool.
                 Button(action: {
-                    self.showingEdit.toggle()
+                    self.model.showingEdit.toggle()
                 }) {
                     Text("Edit")
                 }
 //            }
-            if !self.showingEdit {
+            if !self.model.showingEdit {
                 Text(self.game.gameName ?? "No Game Name").font(.title)
                 Text(self.game.gameDescription ?? "No Game Description").font(.subheadline)
                 // Uncomment to experiment with switvhout out the navbar title when you change to edit mode
@@ -47,7 +56,7 @@ struct GameGoalsDetail: View {
                  
                  If you really wanted to.
                  */
-                EditGameView(model: EditViewModel(game: game)) // View Model
+                EditGameView(model: model) // View Model
 //                EditGameView(game: game) // @State
                 
                 
@@ -105,7 +114,7 @@ struct GameGoalsDetail: View {
                 }
             }
                 // You can control the editMode for the list here based on your showingEdit bool
-            .environment(\.editMode, .constant(self.showingEdit ? EditMode.active : EditMode.inactive))
+                .environment(\.editMode, .constant(self.model.showingEdit ? EditMode.active : EditMode.inactive))
             Button(action: {
                 self.showingAddGoal.toggle()
             }) {
