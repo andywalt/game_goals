@@ -11,29 +11,26 @@ import SwiftUI
 
 struct GameGoalsDetail: View {
     @Environment(\.managedObjectContext) var moc
-    @Environment(\.editMode) var mode
     
     @State private var showingAddGoal = false
         
     @ObservedObject var game: Game
     
+    @State var showingEdit: Bool = false
+    
     var body: some View {
         VStack {
-            HStack {
-                EditButton()
+            Button(action: {
+                self.showingEdit.toggle()
+            }) {
+                Text("Edit Game")
             }
-            if self.mode?.wrappedValue == .inactive {
+            
+            if !self.showingEdit {
                 Text(self.game.gameName ?? "No Game Name").font(.title)
                 Text(self.game.gameDescription ?? "No Game Description").font(.subheadline)
             } else {
-                // I think this is how it needs to be called but not sure if I need
-                EditGameView(game: Game)
-                    .onAppear {
-                        // I think this is where the onAppear goes but I'd imagine that I have to create a whole method like self.updatedGameInfo.gameName = self.game.gameName & a  self.updatedGameInfo = self.game.gameDescription
-                    }
-                    .onDisappear {
-                        // self.game.gameName = self.updatedGameInfo.gameName
-                    }
+                EditGameView(model: EditViewModel(game: game))
             }
             List {
                 ForEach(game.goalArray, id: \.self) { goal in
@@ -50,6 +47,9 @@ struct GameGoalsDetail: View {
                     }
                 }
             }
+            .environment(\.editMode, .constant(self.showingEdit ? EditMode.active : EditMode.inactive))
+            
+            // Add New Goal
             Button(action: {
                 self.showingAddGoal.toggle()
             }) {
