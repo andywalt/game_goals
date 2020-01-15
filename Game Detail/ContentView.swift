@@ -15,6 +15,7 @@ struct ContentView: View {
     @FetchRequest(entity: Game.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Game.gameName, ascending: true)]) var games: FetchedResults<Game>
     @State private var showingAddGame = false
     
+    
     var body: some View {
         GeometryReader { geometry in
             NavigationView {
@@ -30,18 +31,27 @@ struct ContentView: View {
                         }
                     }
                     .onDelete(perform: self.removeGames)
-                }
-                //.navigationBarTitle("Game Goals")
+                    }.id(UUID())
+                    
                 .navigationBarItems(leading:
                     HStack {
-                        EditButton()
+                        Button(action: {
+                                self.showingAddGame.toggle()
+                            }) {
+                                Text("Add Game")
+                                    .padding(.top, 50)
+                                    .foregroundColor(Color.yellow)
+                        }
                         Image("Game Goals App Logo")
-                            .resizable()
-                            .frame(width: 60, height: 60)
-                            .padding(.leading, (geometry.size.width / 2.0) + -90)
-                    }, trailing: Button("Add") {
-                    self.showingAddGame.toggle()
-                })
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                        .padding(.leading, (geometry.size.width / 2.0) + -160)
+                        .padding(.bottom, -50)
+                    }, trailing:
+                        EditButton()
+                            .padding(.top, 50)
+                            .foregroundColor(Color.yellow)
+                            )
                     .sheet(isPresented: self.$showingAddGame) {
                         AddGameView().environment(\.managedObjectContext, self.moc)
                 }

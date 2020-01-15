@@ -14,6 +14,7 @@ class EditViewModel: ObservableObject {
     @Published var newGameName: String
     @Published var newGameDescription: String
     @Published var game: Game
+    @Published var showingEdit: Bool = false
     
     init(game: Game) {
         self.game = game
@@ -35,12 +36,12 @@ struct EditGameView: View {
     
     @ObservedObject var model: EditViewModel
     
-    @State var showingEdit: EditMode = .inactive
-    
     var body: some View {
         List {
             VStack {
-                Text("Game Details").bold()
+                Section {
+                    Text("Game Details").bold()
+                }
                 Divider()
                 TextField("Game Name:", text: $model.newGameName)
                 TextField("Game Description:", text: $model.newGameDescription)
@@ -50,16 +51,7 @@ struct EditGameView: View {
                     self.model.game.gameDescription = self.model.newGameDescription
                         do {
                             try self.moc.save()
-                            self.showingEdit = .active
-                            //When this button gets clicked it needs to tell the showingEdit to toggle to false again.
-                            // tried self.showingEdit = false
-                            // tried self.showingEdit.toggle()
-                            
-                            // would I need to make @State on GameGoalsDetail a @Binding because it's a two way connection?
-                            
-                            // tried Environment(\.editMode) = .inactive
-                            
-                            //aghhhhhh angry noises
+                            self.model.showingEdit = false
                             
                         } catch {
                             print(error.localizedDescription)

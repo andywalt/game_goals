@@ -16,38 +16,50 @@ struct GameGoalsDetail: View {
         
     @ObservedObject var game: Game
     
-    @State var showingEdit: Bool = false
+    @ObservedObject var model: EditViewModel
+    
+    init(game: Game) {
+        self.game = game
+        self.model = EditViewModel(game: game)
+    }
     
     var body: some View {
         VStack {
-            Button(action: {
-                self.showingEdit.toggle()
-            }) {
-                Text("Edit Game")
-            }
-            
-            if !self.showingEdit {
-                Text(self.game.gameName ?? "No Game Name").font(.title)
-                Text(self.game.gameDescription ?? "No Game Description").font(.subheadline)
-            } else {
-                EditGameView(model: EditViewModel(game: game))
-            }
-            List {
-                ForEach(game.goalArray, id: \.self) { goal in
-                    GameGoalListView(goal: goal)
+            Section {
+                if !self.model.showingEdit {
+                    Text(self.game.gameName ?? "No Game Name").font(.title)
+                    Text(self.game.gameDescription ?? "No Game Description")
+                        .font(.subheadline)
+                        .italic()
+                } else {
+                    EditGameView(model: EditViewModel(game: game))
                 }
-                .onDelete { index in
-                    let deleteGoal = self.game.goalArray[index.first!]
-                    self.moc.delete(deleteGoal)
-                    
-                    do {
-                        try self.moc.save()
-                    } catch {
-                        print(error)
+                Button(action: {
+                    self.model.showingEdit.toggle()
+                }) {
+                    if self.model.showingEdit == false {
+                        Text("Edit Game Info").font(.caption)
+                    } else {}
+                }
+            }
+            Section {
+                List {
+                    ForEach(game.goalArray, id: \.self) { goal in
+                        GameGoalListView(goal: goal)
+                        }
+                    .onDelete { index in
+                        let deleteGoal = self.game.goalArray[index.first!]
+                        self.moc.delete(deleteGoal)
+                        
+                        do {
+                            try self.moc.save()
+                        } catch {
+                            print(error)
+                        }
                     }
-                }
+                }.id(UUID())
             }
-            .environment(\.editMode, .constant(self.showingEdit ? EditMode.active : EditMode.inactive))
+            .environment(\.editMode, .constant(self.model.showingEdit ? EditMode.active : EditMode.inactive)).animation(Animation.spring())
             
             // Add New Goal
             Button(action: {

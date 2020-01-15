@@ -28,7 +28,6 @@ struct GameGoalListView: View {
                 Text("Complete:").font(.caption)
                 Image(systemName: self.goal.goalComplete ? "checkmark.square.fill" : "app").onTapGesture {
                     self.goal.goalComplete.toggle()
-                    print(self.goal.goalComplete)
                 }
             }
         }
