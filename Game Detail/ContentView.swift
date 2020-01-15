@@ -25,8 +25,9 @@ struct ContentView: View {
                             VStack(alignment: .leading) {
                                 Text(games.gameName ?? "Unknown Game")
                                     .font(Font.custom("PressStart2p", size: 20))
+                                    .lineLimit(2)
                                 Text(games.gameDescription ?? "Unknown Game Description")
-                                    .font(Font.custom("Avenir-Light", size: 15))
+                                    .font(Font.custom("ChalkboardSE-Light", size: 15))
                             }
                         }
                     }
@@ -72,16 +73,9 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let newGame = Game(context: context)
+        newGame.gameName = "Apex Legends"
+        newGame.gameDescription = "Maybe this will work"
         return ContentView().environment(\.managedObjectContext, context)
     }
 }
-
-
-/*
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
-
-*/

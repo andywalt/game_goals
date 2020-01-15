@@ -27,10 +27,11 @@ struct GameGoalsDetail: View {
         VStack {
             Section {
                 if !self.model.showingEdit {
-                    Text(self.game.gameName ?? "No Game Name").font(.title)
+                    Text(self.game.gameName ?? "No Game Name")
+                        .font(Font.custom("PressStart2p", size: 20))
+                        .padding(3.0)
                     Text(self.game.gameDescription ?? "No Game Description")
-                        .font(.subheadline)
-                        .italic()
+                        .font(Font.custom("ChalkboardSE-Light", size: 15))
                 } else {
                     EditGameView(model: EditViewModel(game: game))
                 }
@@ -38,7 +39,10 @@ struct GameGoalsDetail: View {
                     self.model.showingEdit.toggle()
                 }) {
                     if self.model.showingEdit == false {
-                        Text("Edit Game Info").font(.caption)
+                        Text("Edit Game Info")
+                            .font(.caption)
+                            .foregroundColor(Color.yellow)
+                            .underline()
                     } else {}
                 }
             }
