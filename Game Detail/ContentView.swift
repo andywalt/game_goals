@@ -31,7 +31,7 @@ struct ContentView: View {
                         }
                     }
                     .onDelete(perform: self.removeGames)
-                    }.id(UUID())
+                    }
                     
                 .navigationBarItems(leading:
                     HStack {
