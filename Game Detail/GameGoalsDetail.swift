@@ -94,7 +94,12 @@ struct GameGoalsDetail_Previews: PreviewProvider {
         let newGame = Game.init(context: context)
         newGame.gameName = "Testy Game"
         newGame.gameDescription = "Wooo play the thing"
-       // newGame.goal = Goal.init(goalName: "Try Harder", goalComplete: false, goalOfGame: newGame)
+        
+        let goal = Goal(context: context)
+        goal.goalName = "Try Harder"
+        goal.goalComplete = false
+        goal.goalOfGame = newGame
+        
         return GameGoalsDetail(game: newGame).environment(\.managedObjectContext, context)
     }
 }
