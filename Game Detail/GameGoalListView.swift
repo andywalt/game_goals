@@ -40,9 +40,9 @@ struct GameGoalListView: View {
 struct GameGoalListView_Previews: PreviewProvider {
     static var previews: some View {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let newGame = Game(context: context)
-        newGame.gameName = "Apex Legends"
-        newGame.gameDescription = "Maybe this will work"
+        let newGoal = Goal(context: context)
+        newGoal.goalName = "Try and Try Again"
+        newGoal.goalComplete = false
         return GameGoalListView(goal: Goal()).environment(\.managedObjectContext, context)
     }
 }
