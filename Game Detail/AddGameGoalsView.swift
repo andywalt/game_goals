@@ -22,43 +22,41 @@ struct AddGameGoalsView: View {
     @ObservedObject var game: Game
     
     var body: some View {
-        NavigationView {
-            Form {
-                VStack {
-                    TextField("Add Game Goal", text: $goalName)
-                }
-                HStack {
-                    Spacer()
-                    Button("Add Goal") {
-                        guard self.goalName != "" else {return}
-                        let newGoal = Goal(context: self.moc)
-                        newGoal.goalName = self.goalName
-                        newGoal.goalComplete = false
-                        newGoal.goalOfGame = self.game
-                        
-                        do {
-                            try self.moc.save()
-                            self.presentationMode.wrappedValue.dismiss()
-                        } catch {
-                            print("Whoops! \(error.localizedDescription)")
-                        }
+        Form {
+            VStack {
+                TextField("Add Game Goal", text: $goalName)
+            }
+            HStack {
+                Spacer()
+                Button("Add Goal") {
+                    guard self.goalName != "" else {return}
+                    let newGoal = Goal(context: self.moc)
+                    newGoal.goalName = self.goalName
+                    newGoal.goalComplete = false
+                    newGoal.goalOfGame = self.game
+                    
+                    do {
+                        try self.moc.save()
+                        self.presentationMode.wrappedValue.dismiss()
+                    } catch {
+                        print("Whoops! \(error.localizedDescription)")
                     }
                 }
             }
-            .navigationBarTitle("Add Game Goal")
-            .navigationBarItems(trailing:
-            HStack {
-                Button(action: {
-                    self.presentationMode.wrappedValue.dismiss()
-                }) {
-                    Text("Cancel")
-                }
-                .padding(10)
-                .foregroundColor(Color.white)
-                .background(Color.red)
-                .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
-            })
         }
+        .navigationBarTitle("Add Game Goal")
+        .navigationBarItems(trailing:
+        HStack {
+            Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }) {
+                Text("Cancel")
+            }
+            .padding(10)
+            .foregroundColor(Color.white)
+            .background(Color.red)
+            .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
+        })
     }
 }
 

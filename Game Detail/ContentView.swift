@@ -15,6 +15,10 @@ struct ContentView: View {
     @FetchRequest(entity: Game.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Game.gameName, ascending: true)]) var games: FetchedResults<Game>
     @State private var showingAddGame = false
     
+    init() {
+        UINavigationBar.appearance().titleTextAttributes = [.font : UIFont(name: "PressStart2p", size: 20)!]
+    }
+    
     
     var body: some View {
         GeometryReader { geometry in
@@ -33,29 +37,28 @@ struct ContentView: View {
                     }
                     .onDelete(perform: self.removeGames)
                     }
-                    
                 .navigationBarItems(leading:
                     HStack {
                         Button(action: {
                                 self.showingAddGame.toggle()
                             }) {
-                                Text("Add Game")
-                                    .padding(.top, 50)
+                                Text("Add")
+                                    .padding()
                                     .foregroundColor(Color.yellow)
+                        }
+                        .sheet(isPresented: self.$showingAddGame) {
+                                AddGameView().environment(\.managedObjectContext, self.moc)
                         }
                         Image("Game Goals App Logo")
                         .resizable()
-                        .frame(width: 100, height: 100)
-                        .padding(.leading, (geometry.size.width / 2.0) + -160)
-                        .padding(.bottom, -50)
+                        .frame(width: 75, height: 75)
+                        .padding(.leading, (geometry.size.width / 5.0))
+                        .padding(.top, 10)
                     }, trailing:
                         EditButton()
-                            .padding(.top, 50)
+                            .padding()
                             .foregroundColor(Color.yellow)
                             )
-                    .sheet(isPresented: self.$showingAddGame) {
-                        AddGameView().environment(\.managedObjectContext, self.moc)
-                }
             }
         }
     }
