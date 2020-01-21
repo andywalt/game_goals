@@ -22,21 +22,16 @@ struct GameGoalListView: View {
                 if goal.goalComplete == true {
                     Text(goal.goalName ?? "No Goal Name")
                         .strikethrough()
-                        .foregroundColor(Color.yellow)
                 } else {
                     Text(goal.goalName ?? "No Goal Name")
-                        .foregroundColor(Color.yellow)
                 }
                 Spacer()
                 Text("Complete:").font(.caption)
-                    .foregroundColor(Color.yellow)
                 Image(systemName: self.goal.goalComplete ? "checkmark.square.fill" : "app").onTapGesture {
                     self.goal.goalComplete.toggle()
-                }.foregroundColor(.yellow)
-            }
-            .background(Color.black)
+                }
+            }.foregroundColor(.yellow) // Fun tip: if you apply this to the container view, every view within the container will get it too :) 
         }
-            .background(Color.black)
         .onReceive(self.goal.objectWillChange) {
             try? self.moc.save()
         }

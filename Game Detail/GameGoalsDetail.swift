@@ -53,9 +53,10 @@ struct GameGoalsDetail: View {
                         ForEach(game.goalArray, id: \.self) { goal in
                             GameGoalListView(goal: goal)
                                 .sheet(isPresented: self.$showingAddGoal) {
-                                AddGoalsView(game: self.game).environment(\.managedObjectContext, self.moc)
+                                AddGoalsView(game: self.game)
+                                    .environment(\.managedObjectContext, self.moc)
+                                    .environment(\.colorScheme, .dark)
                                 }
-                            .listRowBackground(Color.black)
                             }
                         .onDelete { index in
                             let deleteGoal = self.game.goalArray[index.first!]
@@ -67,7 +68,7 @@ struct GameGoalsDetail: View {
                                 print(error)
                             }
                         }
-                    }.id(UUID())
+                    }
                 }
                 .environment(\.editMode, .constant(self.model.showingEdit ? EditMode.active : EditMode.inactive)).animation(Animation.spring())
                 
@@ -81,10 +82,11 @@ struct GameGoalsDetail: View {
                     }
                     .foregroundColor(Color.gold)
                 }
+                    
+                    // The change to the GG logo makes it clash with this title. Two options you could consider here might be to (easy) move this title down into the content of the view and just show the GG logo on the navigation bar always, or (more complex) conditionally hide the GG logo with .opacity() depending on which view is on screen.
                 .navigationBarTitle("\(self.game.gameName ?? "Unknown Game")", displayMode: .inline)
                 
         }
-        .background(Color.black)
     }
 }
 

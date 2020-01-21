@@ -45,7 +45,8 @@ struct AddGoalsView: View {
                     }
                     
                 }
-                .navigationBarTitle("Add Game Goal", displayMode: .inline)
+                    // Consider not using this title here since the font doesn't sit in the title.
+//                .navigationBarTitle("Add Game Goal", displayMode: .inline)
                 .navigationBarItems(trailing:
                     HStack {
                         Button(action: {
@@ -57,7 +58,6 @@ struct AddGoalsView: View {
                         .foregroundColor(Color.white)
                         .background(Color.red)
                         .cornerRadius(3.0)
-                        .padding(10)
                     })
             }
             

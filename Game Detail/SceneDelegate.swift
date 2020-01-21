@@ -24,7 +24,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view and set the context as the value for the managedObjectContext environment keyPath.
         // Add `@Environment(\.managedObjectContext)` in the views that will need the context.
-        let contentView = ContentView().environment(\.managedObjectContext, context)
+        let contentView = ContentView()
+            .environment(\.managedObjectContext, context)
+            // Specifying system dark mode to your app is a significantly safer way to get a dark background, as it applies uniformly to all elements. By specifying it on ContentView, you automatically get it on every view that inherits from ContentView. This meants that .sheets WILL need to be manually taged with dark mode too, just like you have to tag them with your managedObjectContext for coredata :)
+            .environment(\.colorScheme, .dark)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

@@ -16,18 +16,16 @@ struct ContentView: View {
     @State private var showingAddGame = false
     
     init() {
+        // Its probably better to do this in your scenedelegate in applicationDidFinishLaunching, but doing it here should be safe.
+        // Note that when you set colours like this rather than using a system color like the swiftui Color type the colour does not change for dark mode, whereas when you do use a system color you get a subtle change in colour tint to match the dark or light shade. Probably not relevant if your app is always dark but i figured i would point it out because it's rarely ever mentioned in tutorials.
         UINavigationBar.appearance().titleTextAttributes = [.font : UIFont(name: "PressStart2p", size: 20)!, .foregroundColor : UIColor(red: 248/255, green: 189/255, blue: 0/255, alpha: 1.0)]
-        
         UINavigationBar.appearance().largeTitleTextAttributes = [.font : UIFont(name: "PressStart2p", size: 20)!]
-        UINavigationBar.appearance().backgroundColor = .black
-        UITableView.appearance().backgroundColor = .black
+        // Better to set the systemwide dark mode rather than metting with the UITableView and UINavigationBar appearance unless you absolutely have to
     }
     
     
     var body: some View {
         ZStack {
-            Rectangle().foregroundColor(.black)
-            GeometryReader { geometry in
                 NavigationView {
                     List {
                         ForEach(self.games, id: \.self) { games in
@@ -45,7 +43,7 @@ struct ContentView: View {
                             .listRowBackground(LinearGradient(gradient: Gradient(colors: [Color.black, Color("darkGray")]), startPoint: .top, endPoint: .bottom))
                         }
                         .onDelete(perform: self.removeGames)
-                        }.id(UUID())
+                        }//.id(UUID()) this guy is causing your game list to turn black when you tap add. I'm not sure what it's doing here, but every time the view rebuilds it gets assigned a new UUID because it calls UUID(). This doesn't seem good for an identifier, though i don't think you need it.
                     .navigationBarItems(leading:
                         HStack {
                             Button(action: {
@@ -57,31 +55,31 @@ struct ContentView: View {
                                         .background(LinearGradient(gradient: Gradient(colors: [Color.gold, Color.yellow, Color.gold]), startPoint: .top, endPoint: .bottom))
                                         .cornerRadius(5.0)
                                         .foregroundColor(Color.black)
-                                        .padding(.top, 70)
-                                        
+                                            // Try to avoid adjusting the dimensions of a navigationbar. UIKit's animations don't handle it well and if you really need to do it you might find its easier to construct your own navigation view container from scratch (!)
                             }
                             .sheet(isPresented: self.$showingAddGame) {
-                                    AddGameView().environment(\.managedObjectContext, self.moc)
+                                    AddGameView()
+                                        .environment(\.managedObjectContext, self.moc)
+                                        .environment(\.colorScheme, .dark)
                             }
-                            Image("Game Goals App Logo")
-                                .resizable()
-                                .frame(width: 100, height: 100)
-                                .padding(.leading, (geometry.size.width / 5.0) - 0)
-                                .padding(.top, 75)
                         }, trailing:
                             EditButton()
                                 .padding(10)
                                 .background(LinearGradient(gradient: Gradient(colors: [Color.gold, Color.yellow, Color.gold]), startPoint: .top, endPoint: .bottom))
                                 .cornerRadius(5.0)
                                 .foregroundColor(Color.black)
-                                .padding(.top, 70)
                     )
 
                 }
-               // .navigationViewStyle(StackNavigationViewStyle())
+            // Add a layer in front of the NavView to overlay the GG logo. Use a VStack with a spacer at the bottom to push the GG to the top of the screen.
+            VStack {
+                Image("Game Goals App Logo")
+                .resizable()
+                .frame(width: 100, height: 100)
+                .offset(x: 0, y: -32) // -32 seems good but play around with this
+                Spacer()
             }
-        }
-        .background(Color.black)
+            }
         
     }
     
