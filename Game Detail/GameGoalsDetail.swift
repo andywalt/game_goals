@@ -52,11 +52,7 @@ struct GameGoalsDetail: View {
                     List {
                         ForEach(game.goalArray, id: \.self) { goal in
                             GameGoalListView(goal: goal)
-                                .sheet(isPresented: self.$showingAddGoal) {
-                                AddGoalsView(game: self.game)
-                                    .environment(\.managedObjectContext, self.moc)
-                                    .environment(\.colorScheme, .dark)
-                                }
+                                // yep yep, if you put the sheet there it can't show up if none of this views are on screen, which is the case when the goalArray is empty
                             }
                         .onDelete { index in
                             let deleteGoal = self.game.goalArray[index.first!]
@@ -68,6 +64,10 @@ struct GameGoalsDetail: View {
                                 print(error)
                             }
                         }
+                    }.sheet(isPresented: self.$showingAddGoal) {
+                    AddGoalsView(game: self.game)
+                        .environment(\.managedObjectContext, self.moc)
+                        .environment(\.colorScheme, .dark)
                     }
                 }
                 .environment(\.editMode, .constant(self.model.showingEdit ? EditMode.active : EditMode.inactive)).animation(Animation.spring())
