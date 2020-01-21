@@ -22,42 +22,50 @@ struct AddGameView: View {
     
     var body: some View {
         NavigationView {
-            Form {
-                Text("Let's get to tracking!")
-                Section {
+            VStack {
+                Form {
                     TextField("Game Name", text: $gameName)
                     TextField("Game Description", text: $gameDescription)
-                }
-                HStack {
-                    Button("Add Game") {
-                        let newGame = Game(context: self.moc)
-                        newGame.gameName = self.gameName
-                        newGame.gameDescription = self.gameDescription
-                        
-                        do {
-                            try self.moc.save()
-                            self.presentationMode.wrappedValue.dismiss()
-                        } catch {
-                            print("Whoops! \(error.localizedDescription)")
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            let newGame = Game(context: self.moc)
+                            newGame.gameName = self.gameName
+                            newGame.gameDescription = self.gameDescription
+                            
+                            do {
+                                try self.moc.save()
+                                self.presentationMode.wrappedValue.dismiss()
+                            } catch {
+                                print("Whoops! \(error.localizedDescription)")
+                            }
+                            
+                        }) {
+                            Text("Add Game")
+                                .padding(10)
+                                .background(LinearGradient(gradient: Gradient(colors: [Color.gold, Color.yellow, Color.gold]), startPoint: .top, endPoint: .bottom))
+                                .cornerRadius(5.0)
+                                .foregroundColor(Color.black)
                         }
-                        
                     }
                 }
+                .navigationBarTitle("Add Game", displayMode: .inline)
+                .navigationBarItems(trailing:
+                    Button(action: {
+                        self.presentationMode.wrappedValue.dismiss()
+                        print()
+                    }) {
+                        Text("Cancel")
+                        .bold()
+                    }
+                    .padding(10)
+                    .foregroundColor(Color.white)
+                    .background(Color.red)
+                    .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
+                )
             }
-            .navigationBarTitle("Add Game", displayMode: .inline)
-            .navigationBarItems(trailing:
-                Button(action: {
-                    self.presentationMode.wrappedValue.dismiss()
-                    print()
-                }) {
-                    Text("Cancel")
-                }
-                .padding(10)
-                .foregroundColor(Color.white)
-                .background(Color.red)
-                .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
-            )
-        }
+            
+        }.environment(\.colorScheme, .dark)
     }
 }
 

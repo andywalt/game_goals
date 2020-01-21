@@ -33,7 +33,7 @@ struct GameGoalsDetail: View {
             VStack {
                 Section {
                     if !self.model.showingEdit {
-                        Text(self.game.gameName ?? "Unknown Game").font(Font.custom("ChalkboardSE-Light", size: 20))
+                        Text(self.game.gameName ?? "Unknown Game").font(Font.custom("PressStart2p", size: 20))
                         .foregroundColor(Color.gold)
                         Text(self.game.gameDescription ?? "No Game Description")
                             .font(Font.custom("ChalkboardSE-Light", size: 15))
