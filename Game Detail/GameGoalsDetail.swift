@@ -12,6 +12,8 @@ import SwiftUI
 struct GameGoalsDetail: View {
     @Environment(\.managedObjectContext) var moc
     
+    @Environment(\.colorScheme) var colorScheme: ColorScheme
+    
     @State private var showingAddGoal = false
         
     @ObservedObject var game: Game
@@ -31,6 +33,8 @@ struct GameGoalsDetail: View {
             VStack {
                 Section {
                     if !self.model.showingEdit {
+                        Text(self.game.gameName ?? "Unknown Game").font(Font.custom("ChalkboardSE-Light", size: 20))
+                        .foregroundColor(Color.gold)
                         Text(self.game.gameDescription ?? "No Game Description")
                             .font(Font.custom("ChalkboardSE-Light", size: 15))
                             .foregroundColor(Color.gold)
@@ -50,25 +54,26 @@ struct GameGoalsDetail: View {
                 }
                 Section {
                     List {
-                        ForEach(game.goalArray, id: \.self) { goal in
-                            GameGoalListView(goal: goal)
-                                .sheet(isPresented: self.$showingAddGoal) {
-                                AddGoalsView(game: self.game).environment(\.managedObjectContext, self.moc)
+                            ForEach(game.goalArray, id: \.self) { goal in
+                                GameGoalListView(goal: goal)
+                                    // yep yep, if you put the sheet there it can't show up if none of this views are on screen, which is the case when the goalArray is empty
                                 }
-                            .listRowBackground(Color.black)
+                            .onDelete { index in
+                                let deleteGoal = self.game.goalArray[index.first!]
+                                self.moc.delete(deleteGoal)
+                                
+                                do {
+                                    try self.moc.save()
+                                } catch {
+                                    print(error)
+                                }
                             }
-                        .onDelete { index in
-                            let deleteGoal = self.game.goalArray[index.first!]
-                            self.moc.delete(deleteGoal)
-                            
-                            do {
-                                try self.moc.save()
-                            } catch {
-                                print(error)
-                            }
-                        }
-                    }.id(UUID())
-                }
+                        }.sheet(isPresented: self.$showingAddGoal) {
+                        AddGoalsView(game: self.game)
+                            .environment(\.managedObjectContext, self.moc)
+                            .environment(\.colorScheme, .dark)
+                        }.listRowBackground(self.colorScheme == .dark ? Color.black : .none)
+                    }
                 .environment(\.editMode, .constant(self.model.showingEdit ? EditMode.active : EditMode.inactive)).animation(Animation.spring())
                 
                 // Add New Goal
@@ -81,10 +86,8 @@ struct GameGoalsDetail: View {
                     }
                     .foregroundColor(Color.gold)
                 }
-                .navigationBarTitle("\(self.game.gameName ?? "Unknown Game")", displayMode: .inline)
                 
         }
-        .background(Color.black)
     }
 }
 

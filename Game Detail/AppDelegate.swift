@@ -25,6 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } */
         
         let navigationBarAppearace = UINavigationBar.appearance()
+        
+        navigationBarAppearace.titleTextAttributes = [.font : UIFont(name: "PressStart2p", size: 20)!, .foregroundColor : UIColor(red: 248/255, green: 189/255, blue: 0/255, alpha: 1.0)]
+        navigationBarAppearace.largeTitleTextAttributes = [.font : UIFont(name: "PressStart2p", size: 20)!]
 
         navigationBarAppearace.tintColor = UIColor(red: 248/255, green: 189/255, blue: 0/255, alpha: 1.0)
         navigationBarAppearace.barTintColor = .black
