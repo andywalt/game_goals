@@ -23,6 +23,7 @@ struct AddGameView: View {
     var body: some View {
         NavigationView {
             Form {
+                Text("Let's get to tracking!")
                 Section {
                     TextField("Game Name", text: $gameName)
                     TextField("Game Description", text: $gameDescription)
@@ -43,19 +44,19 @@ struct AddGameView: View {
                     }
                 }
             }
-            .navigationBarTitle("New Game")
+            .navigationBarTitle("Add Game", displayMode: .inline)
             .navigationBarItems(trailing:
-                HStack {
-                    Button(action: {
-                        self.presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Text("Cancel")
-                    }
-                    .padding(10)
-                    .foregroundColor(Color.white)
-                    .background(Color.red)
-                    .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
-                })
+                Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                    print()
+                }) {
+                    Text("Cancel")
+                }
+                .padding(10)
+                .foregroundColor(Color.white)
+                .background(Color.red)
+                .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
+            )
         }
     }
 }

@@ -12,7 +12,7 @@ import CoreData
 
 
 
-struct AddGameGoalsView: View {
+struct AddGoalsView: View {
     @Environment(\.managedObjectContext) var moc
     @FetchRequest(entity: Game.entity(), sortDescriptors: []) var games: FetchedResults<Game>
     @Environment(\.presentationMode) var presentationMode
@@ -43,27 +43,30 @@ struct AddGameGoalsView: View {
                             print("Whoops! \(error.localizedDescription)")
                         }
                     }
+                    
                 }
+                .navigationBarTitle("Add Game Goal", displayMode: .inline)
+                .navigationBarItems(trailing:
+                    HStack {
+                        Button(action: {
+                            self.presentationMode.wrappedValue.dismiss()
+                        }) {
+                            Text("Cancel")
+                        }
+                        .padding(10)
+                        .foregroundColor(Color.white)
+                        .background(Color.red)
+                        .cornerRadius(3.0)
+                        .padding(10)
+                    })
             }
-            .navigationBarTitle("Add Game Goal")
-            .navigationBarItems(trailing:
-            HStack {
-                Button(action: {
-                    self.presentationMode.wrappedValue.dismiss()
-                }) {
-                    Text("Cancel")
-                }
-                .padding(10)
-                .foregroundColor(Color.white)
-                .background(Color.red)
-                .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
-            })
+            
         }
     }
 }
 
 
-struct AddGameGoalsView_Previews: PreviewProvider {
+struct AddGoalsView_Previews: PreviewProvider {
     static var previews: some View {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let newGoal = Goal(context: context)
@@ -72,6 +75,6 @@ struct AddGameGoalsView_Previews: PreviewProvider {
         newGoal.goalOfGame = Game(context: context)
         newGoal.goalOfGame?.gameName = "Test Game 1"
         newGoal.goalOfGame?.gameDescription = "Maybe this will work"
-        return AddGameGoalsView(game: Game()).environment(\.managedObjectContext, context)
+        return AddGoalsView(game: Game()).environment(\.managedObjectContext, context)
     }
 }

@@ -17,22 +17,23 @@ struct GameGoalsDetail: View {
     @ObservedObject var game: Game
     
     @ObservedObject var model: EditViewModel
+
     
     init(game: Game) {
         self.game = game
         self.model = EditViewModel(game: game)
+    
+    
     }
+
     
     var body: some View {
-        NavigationView {
             VStack {
                 Section {
                     if !self.model.showingEdit {
-                        Text(self.game.gameName ?? "No Game Name")
-                            .font(Font.custom("PressStart2p", size: 20))
-                            .padding(3.0)
                         Text(self.game.gameDescription ?? "No Game Description")
                             .font(Font.custom("ChalkboardSE-Light", size: 15))
+                            .foregroundColor(Color.gold)
                     } else {
                         EditGameView(model: EditViewModel(game: game))
                     }
@@ -42,7 +43,7 @@ struct GameGoalsDetail: View {
                         if self.model.showingEdit == false {
                             Text("Edit Game Info")
                                 .font(.caption)
-                                .foregroundColor(Color.yellow)
+                                .foregroundColor(Color.gold)
                                 .underline()
                         } else {}
                     }
@@ -51,6 +52,10 @@ struct GameGoalsDetail: View {
                     List {
                         ForEach(game.goalArray, id: \.self) { goal in
                             GameGoalListView(goal: goal)
+                                .sheet(isPresented: self.$showingAddGoal) {
+                                AddGoalsView(game: self.game).environment(\.managedObjectContext, self.moc)
+                                }
+                            .listRowBackground(Color.black)
                             }
                         .onDelete { index in
                             let deleteGoal = self.game.goalArray[index.first!]
@@ -74,15 +79,12 @@ struct GameGoalsDetail: View {
                         Image(systemName: "plus")
                         Text("Add Goal")
                     }
+                    .foregroundColor(Color.gold)
                 }
-                .sheet(isPresented: $showingAddGoal) {
-                    AddGameGoalsView(game: self.game).environment(\.managedObjectContext, self.moc)
-                }
-            }
-            .navigationBarHidden(true)
-            .navigationBarTitle("")
-           // .edgesIgnoringSafeArea(.top)
+                .navigationBarTitle("\(self.game.gameName ?? "Unknown Game")", displayMode: .inline)
+                
         }
+        .background(Color.black)
     }
 }
 

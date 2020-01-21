@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F50722D623BE910B00DEE573 /* GameGoalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F50722D523BE910B00DEE573 /* GameGoalListView.swift */; };
 		F50722E023C939B300DEE573 /* PressStart.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F50722DF23C939B300DEE573 /* PressStart.ttf */; };
+		F52A577223D6C368000EE725 /* Custom Styling.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52A577123D6C368000EE725 /* Custom Styling.swift */; };
 		F54BEF9323CAB13A00E0DFC3 /* EditGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F54BEF9223CAB13A00E0DFC3 /* EditGameView.swift */; };
 		F5B8BD5E23A2276700173802 /* Game+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8BD5A23A2276700173802 /* Game+CoreDataClass.swift */; };
 		F5B8BD5F23A2276700173802 /* Game+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8BD5B23A2276700173802 /* Game+CoreDataProperties.swift */; };
@@ -23,12 +24,13 @@
 		F5E28CD123A1ADFB006D4A3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5E28CCF23A1ADFB006D4A3C /* LaunchScreen.storyboard */; };
 		F5E28CE123A1F2F0006D4A3C /* AddGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E28CE023A1F2F0006D4A3C /* AddGameView.swift */; };
 		F5E827DA23A2B193000FF2D8 /* GameGoalsDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E827D923A2B193000FF2D8 /* GameGoalsDetail.swift */; };
-		F5E827DC23A2D66D000FF2D8 /* AddGameGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E827DB23A2D66D000FF2D8 /* AddGameGoalsView.swift */; };
+		F5E827DC23A2D66D000FF2D8 /* AddGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E827DB23A2D66D000FF2D8 /* AddGoalsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F50722D523BE910B00DEE573 /* GameGoalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameGoalListView.swift; sourceTree = "<group>"; };
 		F50722DF23C939B300DEE573 /* PressStart.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = PressStart.ttf; sourceTree = "<group>"; };
+		F52A577123D6C368000EE725 /* Custom Styling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Custom Styling.swift"; sourceTree = "<group>"; };
 		F54BEF9223CAB13A00E0DFC3 /* EditGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGameView.swift; sourceTree = "<group>"; };
 		F5B8BD5A23A2276700173802 /* Game+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		F5B8BD5B23A2276700173802 /* Game+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Game+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
@@ -45,7 +47,7 @@
 		F5E28CD223A1ADFB006D4A3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F5E28CE023A1F2F0006D4A3C /* AddGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameView.swift; sourceTree = "<group>"; };
 		F5E827D923A2B193000FF2D8 /* GameGoalsDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameGoalsDetail.swift; sourceTree = "<group>"; };
-		F5E827DB23A2D66D000FF2D8 /* AddGameGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameGoalsView.swift; sourceTree = "<group>"; };
+		F5E827DB23A2D66D000FF2D8 /* AddGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoalsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,20 +80,21 @@
 		F5E28CC023A1ADFA006D4A3C /* Game Detail */ = {
 			isa = PBXGroup;
 			children = (
+				F52A577123D6C368000EE725 /* Custom Styling.swift */,
 				F5B8BD5A23A2276700173802 /* Game+CoreDataClass.swift */,
 				F5B8BD5B23A2276700173802 /* Game+CoreDataProperties.swift */,
 				F5B8BD5C23A2276700173802 /* Goal+CoreDataClass.swift */,
 				F5B8BD5D23A2276700173802 /* Goal+CoreDataProperties.swift */,
 				F5E28CC123A1ADFA006D4A3C /* AppDelegate.swift */,
 				F5E28CC323A1ADFA006D4A3C /* SceneDelegate.swift */,
-				F5E28CC823A1ADFA006D4A3C /* ContentView.swift */,
 				F50722DF23C939B300DEE573 /* PressStart.ttf */,
 				F5E28CCA23A1ADFB006D4A3C /* Assets.xcassets */,
 				F5E28CCF23A1ADFB006D4A3C /* LaunchScreen.storyboard */,
 				F5E28CD223A1ADFB006D4A3C /* Info.plist */,
+				F5E28CC823A1ADFA006D4A3C /* ContentView.swift */,
 				F5E827D923A2B193000FF2D8 /* GameGoalsDetail.swift */,
 				F50722D523BE910B00DEE573 /* GameGoalListView.swift */,
-				F5E827DB23A2D66D000FF2D8 /* AddGameGoalsView.swift */,
+				F5E827DB23A2D66D000FF2D8 /* AddGoalsView.swift */,
 				F54BEF9223CAB13A00E0DFC3 /* EditGameView.swift */,
 				F5E28CE023A1F2F0006D4A3C /* AddGameView.swift */,
 				F5E28CC523A1ADFA006D4A3C /* Game_Detail.xcdatamodeld */,
@@ -181,13 +184,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5B8BD5F23A2276700173802 /* Game+CoreDataProperties.swift in Sources */,
+				F52A577223D6C368000EE725 /* Custom Styling.swift in Sources */,
 				F50722D623BE910B00DEE573 /* GameGoalListView.swift in Sources */,
 				F5E28CC723A1ADFA006D4A3C /* Game_Detail.xcdatamodeld in Sources */,
 				F5B8BD6023A2276700173802 /* Goal+CoreDataClass.swift in Sources */,
 				F5E28CC223A1ADFA006D4A3C /* AppDelegate.swift in Sources */,
 				F5E28CC923A1ADFA006D4A3C /* ContentView.swift in Sources */,
 				F54BEF9323CAB13A00E0DFC3 /* EditGameView.swift in Sources */,
-				F5E827DC23A2D66D000FF2D8 /* AddGameGoalsView.swift in Sources */,
+				F5E827DC23A2D66D000FF2D8 /* AddGoalsView.swift in Sources */,
 				F5B8BD6123A2276700173802 /* Goal+CoreDataProperties.swift in Sources */,
 				F5E28CC423A1ADFA006D4A3C /* SceneDelegate.swift in Sources */,
 				F5E28CE123A1F2F0006D4A3C /* AddGameView.swift in Sources */,

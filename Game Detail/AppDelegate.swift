@@ -11,6 +11,7 @@ import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
 
 
 
@@ -22,6 +23,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let names = UIFont.fontNames(forFamilyName: family)
             print("Family: \(family) Font names: \(names)")
         } */
+        
+        let navigationBarAppearace = UINavigationBar.appearance()
+
+        navigationBarAppearace.tintColor = UIColor(red: 248/255, green: 189/255, blue: 0/255, alpha: 1.0)
+        navigationBarAppearace.barTintColor = .black
+        
+        
         return true
     }
 
