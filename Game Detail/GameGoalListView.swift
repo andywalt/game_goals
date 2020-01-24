@@ -16,16 +16,30 @@ struct GameGoalListView: View {
     
     @ObservedObject var goal: Goal
     
+    
+    var taskDateFormat: RelativeDateTimeFormatter {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .full
+        return formatter
+    }
+    
     var body: some View {
         VStack {
             HStack {
-                if goal.goalComplete == true {
-                    Text(goal.goalName ?? "No Goal Name")
-                        .strikethrough()
-                        .foregroundColor(Color.yellow)
-                } else {
-                    Text(goal.goalName ?? "No Goal Name")
-                        .foregroundColor(Color.yellow)
+                VStack(alignment: .leading) {
+                    if goal.goalComplete == true {
+                        Text(goal.goalName ?? "No Goal Name")
+                            .strikethrough()
+                            .foregroundColor(Color.yellow)
+                    } else {
+                        Text(goal.goalName ?? "No Goal Name")
+                            .foregroundColor(Color.yellow)
+                    }
+                    Text("Goal added: \(goal.goalCreatedDate, formatter: self.taskDateFormat)")
+                        .font(.footnote)
+                        .italic()
+                    Text("Difficulty: \(goal.goalDifficulty ?? "")")
+                        .font(.caption)
                 }
                 Spacer()
                 Text("Complete:").font(.caption)
@@ -39,16 +53,24 @@ struct GameGoalListView: View {
             try? self.moc.save()
         }
     }
+    
 }
 
 struct GameGoalListView_Previews: PreviewProvider {
     static var previews: some View {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         
+        let newGame = Game.init(context: context)
+        newGame.gameName = "Testy Game"
+        newGame.gameDescription = "Wooo play the thing"
+        
         let goal = Goal(context: context)
         goal.goalName = "Try Harder"
         goal.goalComplete = false
-        goal.goalOfGame?.gameName = "Apex Legends"
+        goal.goalCreatedDate = Date()
+        goal.goalDifficulty = "Meh"
+        goal.goalOfGame = newGame
+        
         
         return GameGoalListView(goal: Goal()).environment(\.managedObjectContext, context)
     }

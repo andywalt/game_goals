@@ -18,49 +18,79 @@ struct AddGoalsView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @State private var goalName = ""
+    @State private var goalDifficulty = "Meh"
+    
+    let difficulties = ["Easy Mode", "Meh", "Help Me God"]
     
     @ObservedObject var game: Game
     
     var body: some View {
         NavigationView {
-            Form {
-                VStack {
+            VStack {
+                Form {
                     TextField("Add Game Goal", text: $goalName)
-                }
-                HStack {
-                    Spacer()
-                    Button("Add Goal") {
-                        guard self.goalName != "" else {return}
-                        let newGoal = Goal(context: self.moc)
-                        newGoal.goalName = self.goalName
-                        newGoal.goalComplete = false
-                        newGoal.goalOfGame = self.game
-                        
-                        do {
-                            try self.moc.save()
-                            self.presentationMode.wrappedValue.dismiss()
-                        } catch {
-                            print("Whoops! \(error.localizedDescription)")
-                        }
+                    
+                    HStack {
+                        Spacer()
+                        Text("Goal Difficulty")
+                        Spacer()
                     }
                     
+                    Picker("Difficulty", selection: $goalDifficulty) {
+                        ForEach(difficulties, id:\.self) {
+                            Text($0)
+                        }
+                    }.pickerStyle(SegmentedPickerStyle())
+                    
                 }
-                .navigationBarTitle("Add Game Goal", displayMode: .inline)
-                .navigationBarItems(trailing:
+                VStack {
                     HStack {
                         Button(action: {
-                            self.presentationMode.wrappedValue.dismiss()
+                            guard self.goalName != "" else {return}
+                            let newGoal = Goal(context: self.moc)
+                            newGoal.goalName = self.goalName
+                            newGoal.goalComplete = false
+                            newGoal.goalDifficulty = self.goalDifficulty
+                            newGoal.goalCreatedDate = Date()
+                            newGoal.goalOfGame = self.game
+                            
+                            
+                            
+                            do {
+                                try self.moc.save()
+                                self.presentationMode.wrappedValue.dismiss()
+                            } catch {
+                                print("Whoops! \(error.localizedDescription)")
+                            }
+                            
                         }) {
-                            Text("Cancel")
+                            Text("Add Goal")
                         }
-                        .padding(10)
-                        .foregroundColor(Color.white)
-                        .background(Color.red)
-                        .cornerRadius(3.0)
-                        .padding(10)
-                    })
+                            .padding(10)
+                            .background(LinearGradient(gradient: Gradient(colors: [Color.gold, Color.yellow, Color.gold]), startPoint: .top, endPoint: .bottom))
+                            .cornerRadius(5.0)
+                            .foregroundColor(Color.black)
+                            .offset(x: 0, y: -200)
+                        
+                    }
+                    Spacer()
+                    
+                }
             }
-            
+        .navigationBarTitle("Add Game Goal", displayMode: .inline)
+        .navigationBarItems(trailing:
+            HStack {
+                Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }) {
+                    Text("Cancel")
+                }
+                .padding(10)
+                .foregroundColor(Color.white)
+                .background(Color.red)
+                .cornerRadius(3.0)
+                .padding(10)
+            })
         }
     }
 }
@@ -72,9 +102,11 @@ struct AddGoalsView_Previews: PreviewProvider {
         let newGoal = Goal(context: context)
         newGoal.goalName = "Goal 1"
         newGoal.goalComplete = false
+        newGoal.goalDifficulty = "Meh"
         newGoal.goalOfGame = Game(context: context)
         newGoal.goalOfGame?.gameName = "Test Game 1"
         newGoal.goalOfGame?.gameDescription = "Maybe this will work"
         return AddGoalsView(game: Game()).environment(\.managedObjectContext, context)
+            .environment(\.colorScheme, .dark)
     }
 }

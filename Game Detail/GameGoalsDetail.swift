@@ -54,20 +54,19 @@ struct GameGoalsDetail: View {
                 }
                 Section {
                     List {
-                            ForEach(game.goalArray, id: \.self) { goal in
+                        ForEach(game.goalArray, id: \.goalName) { goal in
                                 GameGoalListView(goal: goal)
-                                    // yep yep, if you put the sheet there it can't show up if none of this views are on screen, which is the case when the goalArray is empty
                                 }
-                            .onDelete { index in
-                                let deleteGoal = self.game.goalArray[index.first!]
-                                self.moc.delete(deleteGoal)
-                                
-                                do {
-                                    try self.moc.save()
-                                } catch {
-                                    print(error)
+                                .onDelete { index in
+                                    let deleteGoal = self.game.goalArray[index.first!]
+                                    self.moc.delete(deleteGoal)
+                                    
+                                    do {
+                                        try self.moc.save()
+                                    } catch {
+                                        print(error)
+                                    }
                                 }
-                            }
                         }.sheet(isPresented: self.$showingAddGoal) {
                         AddGoalsView(game: self.game)
                             .environment(\.managedObjectContext, self.moc)
@@ -103,6 +102,8 @@ struct GameGoalsDetail_Previews: PreviewProvider {
         let goal = Goal(context: context)
         goal.goalName = "Try Harder"
         goal.goalComplete = false
+        goal.goalCreatedDate = Date()
+        goal.goalDifficulty = "Meh"
         goal.goalOfGame = newGame
         
         return GameGoalsDetail(game: newGame).environment(\.managedObjectContext, context)

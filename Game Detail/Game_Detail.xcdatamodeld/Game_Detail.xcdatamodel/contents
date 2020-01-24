@@ -12,11 +12,13 @@
     </entity>
     <entity name="Goal" representedClassName=".Goal" syncable="YES">
         <attribute name="goalComplete" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="goalCreatedDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="goalDifficulty" optional="YES" attributeType="String" defaultValueString="&quot;Meh&quot;"/>
         <attribute name="goalName" optional="YES" attributeType="String" maxValueString="140"/>
         <relationship name="goalOfGame" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Game" inverseName="goal" inverseEntity="Game"/>
     </entity>
     <elements>
         <element name="Game" positionX="-63" positionY="-18" width="128" height="88"/>
-        <element name="Goal" positionX="-63" positionY="0" width="128" height="88"/>
+        <element name="Goal" positionX="-63" positionY="0" width="128" height="118"/>
     </elements>
 </model>
