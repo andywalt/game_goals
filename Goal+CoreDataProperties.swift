@@ -20,11 +20,16 @@ extension Goal {
     @NSManaged public var goalName: String?
     @NSManaged public var goalComplete: Bool
     @NSManaged public var goalOfGame: Game?
-    @NSManaged public var goalCreatedDate: Date
+    @NSManaged public var goalCreatedDate: Date?
     @NSManaged public var goalDifficulty: String?
     
     public var wrappedGoalName: String {
         goalName ?? "Unknown Goal"
     }
+    
+    public var wrappedGoalCreatedDate: Date {
+        goalCreatedDate ?? Date()
+    }
+    
 
 }

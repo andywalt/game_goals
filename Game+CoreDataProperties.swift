@@ -34,7 +34,7 @@ extension Game {
         
         // Checks to see if the goalComplete are the same, then sorts by goalName, if not sorts by complete or not.
         return set.sorted(by: { (lhs, rhs) -> Bool in
-            if lhs.goalComplete == rhs.goalComplete { return lhs.goalCreatedDate > rhs.goalCreatedDate}
+            if lhs.goalComplete == rhs.goalComplete { return lhs.wrappedGoalCreatedDate.compare(rhs.wrappedGoalCreatedDate) == .orderedDescending}
             return lhs.goalComplete == false && rhs.goalComplete != false
         })
     }

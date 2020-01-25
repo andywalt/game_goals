@@ -35,7 +35,7 @@ struct GameGoalListView: View {
                         Text(goal.goalName ?? "No Goal Name")
                             .foregroundColor(Color.yellow)
                     }
-                    Text("Goal added: \(goal.goalCreatedDate, formatter: self.taskDateFormat)")
+                    Text("Goal added: \(goal.goalCreatedDate ?? Date(), formatter: self.taskDateFormat)")
                         .font(.footnote)
                         .italic()
                     Text("Difficulty: \(goal.goalDifficulty ?? "")")
