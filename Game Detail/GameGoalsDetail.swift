@@ -51,29 +51,46 @@ struct GameGoalsDetail: View {
                                 .underline()
                         } else {}
                     }
+                }.sheet(isPresented: self.$showingAddGoal) {
+                AddGoalsView(game: self.game)
+                    .environment(\.managedObjectContext, self.moc)
+                    .environment(\.colorScheme, .dark)
                 }
-                Section {
-                    List {
-                        ForEach(game.goalArray, id: \.goalName) { goal in
-                                GameGoalListView(goal: goal)
-                                }
-                                .onDelete { index in
-                                    let deleteGoal = self.game.goalArray[index.first!]
-                                    self.moc.delete(deleteGoal)
-                                    
-                                    do {
-                                        try self.moc.save()
-                                    } catch {
-                                        print(error)
+                if !self.game.goalArray.isEmpty {
+                    Section {
+                        List {
+                            ForEach(game.goalArray, id: \.self) { goal in
+                                    GameGoalListView(goal: goal)
                                     }
-                                }
-                        }.sheet(isPresented: self.$showingAddGoal) {
-                        AddGoalsView(game: self.game)
-                            .environment(\.managedObjectContext, self.moc)
-                            .environment(\.colorScheme, .dark)
-                        }.listRowBackground(self.colorScheme == .dark ? Color.black : .none)
+                                    .onDelete { index in
+                                        let deleteGoal = self.game.goalArray[index.first ?? 0]
+                                        self.moc.delete(deleteGoal)
+                                        
+                                        do {
+                                            try self.moc.save()
+                                        } catch {
+                                            print(error)
+                                        }
+                                    }
+                            }
+                        .listRowBackground(self.colorScheme == .dark ? Color.black : .none)
+                        }
+                    
+                } else {
+                    Text("Adventures await, traveler! To begin accomplishing all the things and stuff, tap the \"Add Goal\" button below and we shall begin doing the things!").onTapGesture {
+                        self.showingAddGoal.toggle()
                     }
-                .environment(\.editMode, .constant(self.model.showingEdit ? EditMode.active : EditMode.inactive)).animation(Animation.spring())
+                    .font(Font.custom("PressStart2p", size: 15))
+                    .foregroundColor(Color.gold)
+                    .padding(.top, 50)
+                    .padding(.horizontal, 40)
+                    .multilineTextAlignment(.center)
+                    List {
+                        Text("")
+                        //.frame(maxWidth: .infinity, alignment: .center)
+                        
+                    }
+                }
                 
                 // Add New Goal
                 Button(action: {
@@ -86,7 +103,7 @@ struct GameGoalsDetail: View {
                     .foregroundColor(Color.gold)
                 }
                 
-        }
+        }.environment(\.editMode, .constant(self.model.showingEdit ? EditMode.active : EditMode.inactive)).animation(Animation.spring())
     }
 }
 
