@@ -20,7 +20,6 @@ struct GameGoalsDetail: View {
     
     @ObservedObject var model: EditViewModel
     
-    @State var goalSpin = false
     @State var goalGrow = false
 
     
@@ -90,12 +89,10 @@ struct GameGoalsDetail: View {
                         .padding(.horizontal, 40)
                         .multilineTextAlignment(.center)
                         .lineSpacing(10)
-                        .rotationEffect(.degrees(goalSpin ? 360 : 0))
                         .scaleEffect(goalGrow ? 1 : 0.5)
                        // .animation(Animation.basic(duration: 0.5, curve: .linear).repeatForever(autoreverses: false))
-                        .animation(.linear(duration: 2))
+                            .animation(.linear(duration: 1))
                         .onAppear() {
-                            self.goalSpin.toggle()
                             self.goalGrow.toggle()
                         }
                         List {

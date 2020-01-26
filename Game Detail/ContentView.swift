@@ -19,26 +19,52 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Rectangle().foregroundColor(.black)
             NavigationView {
-                List {
-                    ForEach(self.games, id: \.self) { games in
-                        NavigationLink(destination: GameGoalsDetail(game: games)) {
-                            VStack(alignment: .leading) {
-                                Text(games.gameName ?? "Unknown Game")
-                                    .font(Font.custom("PressStart2p", size: 20))
-                                    .lineLimit(2)
-                                    .foregroundColor(.gold)
-                                Text(games.gameDescription ?? "Unknown Game Description")
-                                    .font(Font.custom("ChalkboardSE-Light", size: 15))
-                                    .foregroundColor(Color.gold)
-                            }
+                if !self.games.isEmpty {
+                    List {
+                        ForEach(self.games, id: \.self) { games in
+                            NavigationLink(destination: GameGoalsDetail(game: games)) {
+                                VStack(alignment: .leading) {
+                                    Text(games.gameName ?? "Unknown Game")
+                                        .font(Font.custom("PressStart2p", size: 20))
+                                        .lineLimit(2)
+                                        .foregroundColor(.gold)
+                                    Text(games.gameDescription ?? "Unknown Game Description")
+                                        .font(Font.custom("ChalkboardSE-Light", size: 15))
+                                        .foregroundColor(Color.gold)
+                                    }
+                                }
+                                .listRowBackground(self.colorScheme == .dark ? LinearGradient(gradient: Gradient(colors: [Color.black, Color("darkGray")]), startPoint: .top, endPoint: .bottom) : .none)
+                            }.onDelete(perform: self.removeGames)
                         }
-                        .listRowBackground(self.colorScheme == .dark ? LinearGradient(gradient: Gradient(colors: [Color.black, Color("darkGray")]), startPoint: .top, endPoint: .bottom) : .none)
-                    }.onDelete(perform: self.removeGames)
-                    }
-                .navigationBarItems(leading:
-                    HStack {
+                    .navigationBarItems(leading:
+                        HStack {
+                            Button(action: {
+                                    self.showingAddGame.toggle()
+                                }) {
+                                    Text("Add")
+                                        
+                                        .padding(10)
+                                        .background(LinearGradient(gradient: Gradient(colors: [Color.gold, Color.yellow, Color.gold]), startPoint: .top, endPoint: .bottom))
+                                        .cornerRadius(5.0)
+                                        .foregroundColor(Color.black)
+                                        
+                            }
+                            .sheet(isPresented: self.$showingAddGame) {
+                                    AddGameView().environment(\.managedObjectContext, self.moc)
+                            }
+                        }, trailing:
+                            EditButton()
+                                .padding(10)
+                                .background(LinearGradient(gradient: Gradient(colors: [Color.gold, Color.yellow, Color.gold]), startPoint: .top, endPoint: .bottom))
+                                .cornerRadius(5.0)
+                                .foregroundColor(Color.black)
+                    )
+                    
+                } else {
+                    VStack {
+                        Text("Let's add some games!")
+                            .foregroundColor(Color.gold)
                         Button(action: {
                                 self.showingAddGame.toggle()
                             }) {
@@ -53,20 +79,14 @@ struct ContentView: View {
                         .sheet(isPresented: self.$showingAddGame) {
                                 AddGameView().environment(\.managedObjectContext, self.moc)
                         }
-                    }, trailing:
-                        EditButton()
-                            .padding(10)
-                            .background(LinearGradient(gradient: Gradient(colors: [Color.gold, Color.yellow, Color.gold]), startPoint: .top, endPoint: .bottom))
-                            .cornerRadius(5.0)
-                            .foregroundColor(Color.black)
-                )
-
+                    }
+                }
             }
             VStack {
                 Image("Game Goals App Logo")
                 .resizable()
                 .frame(width: 100, height: 100)
-                .offset(x: 0, y: -32)
+                .offset(x: 0, y: -25)
                 Spacer()
             }
         }
@@ -83,7 +103,7 @@ struct ContentView: View {
 }
 
 
-#if DEBUG
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -94,4 +114,4 @@ struct ContentView_Previews: PreviewProvider {
             .environment(\.colorScheme, .dark)
     }
 }
-#endif
+
