@@ -18,7 +18,7 @@ struct AddGoalsView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @State private var goalName = ""
-    @State private var goalDifficulty = "Meh"
+    @State private var goalDifficulty = "Easy Mode"
     
     let difficulties = ["Easy Mode", "Meh", "Help Me God"]
     

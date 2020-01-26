@@ -19,6 +19,9 @@ struct GameGoalsDetail: View {
     @ObservedObject var game: Game
     
     @ObservedObject var model: EditViewModel
+    
+    @State var goalSpin = false
+    @State var goalGrow = false
 
     
     init(game: Game) {
@@ -77,18 +80,28 @@ struct GameGoalsDetail: View {
                         }
                     
                 } else {
-                    Text("Adventures await, traveler! To begin accomplishing all the things and stuff, tap the \"Add Goal\" button below and we shall begin doing the things!").onTapGesture {
-                        self.showingAddGoal.toggle()
-                    }
-                    .font(Font.custom("PressStart2p", size: 15))
-                    .foregroundColor(Color.gold)
-                    .padding(.top, 50)
-                    .padding(.horizontal, 40)
-                    .multilineTextAlignment(.center)
-                    List {
-                        Text("")
-                        //.frame(maxWidth: .infinity, alignment: .center)
-                        
+                    VStack(alignment: .center) {
+                        Text("Adventures await, traveler! To begin accomplishing all the things and stuff, tap the \"Add Goal\" button below and we shall begin doing the things!").onTapGesture {
+                            self.showingAddGoal.toggle()
+                        }
+                        .font(Font.custom("PressStart2p", size: 12))
+                        .foregroundColor(Color.gold)
+                        .padding(.top, 50)
+                        .padding(.horizontal, 40)
+                        .multilineTextAlignment(.center)
+                        .lineSpacing(10)
+                        .rotationEffect(.degrees(goalSpin ? 360 : 0))
+                        .scaleEffect(goalGrow ? 1 : 0.5)
+                       // .animation(Animation.basic(duration: 0.5, curve: .linear).repeatForever(autoreverses: false))
+                        .animation(.linear(duration: 2))
+                        .onAppear() {
+                            self.goalSpin.toggle()
+                            self.goalGrow.toggle()
+                        }
+                        List {
+                            Text("")
+                            
+                        }
                     }
                 }
                 
@@ -100,7 +113,10 @@ struct GameGoalsDetail: View {
                         Image(systemName: "plus")
                         Text("Add Goal")
                     }
-                    .foregroundColor(Color.gold)
+                    .padding(10)
+                    .background(LinearGradient(gradient: Gradient(colors: [Color.gold, Color.yellow, Color.gold]), startPoint: .top, endPoint: .bottom))
+                    .cornerRadius(5.0)
+                    .foregroundColor(Color.black)
                 }
                 
         }.environment(\.editMode, .constant(self.model.showingEdit ? EditMode.active : EditMode.inactive)).animation(Animation.spring())
