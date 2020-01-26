@@ -51,10 +51,15 @@ struct GameGoalsDetail: View {
                                 .underline()
                         } else {}
                     }
+                }.sheet(isPresented: self.$showingAddGoal) {
+                    AddGoalsView(game: self.game)
+                        .environment(\.managedObjectContext, self.moc)
+                        .environment(\.colorScheme, .dark)
                 }
+                if !self.game.goalArray.isEmpty {
                 Section {
                     List {
-                        ForEach(game.goalArray, id: \.goalName) { goal in
+                        ForEach(self.game.goalArray, id: \.goalName) { goal in
                                 GameGoalListView(goal: goal)
                                 }
                                 .onDelete { index in
@@ -67,13 +72,15 @@ struct GameGoalsDetail: View {
                                         print(error)
                                     }
                                 }
-                        }.sheet(isPresented: self.$showingAddGoal) {
-                        AddGoalsView(game: self.game)
-                            .environment(\.managedObjectContext, self.moc)
-                            .environment(\.colorScheme, .dark)
-                        }.listRowBackground(self.colorScheme == .dark ? Color.black : .none)
-                    }
-                .environment(\.editMode, .constant(self.model.showingEdit ? EditMode.active : EditMode.inactive)).animation(Animation.spring())
+//                        Spacer()
+                        }
+                    
+                .listRowBackground(self.colorScheme == .dark ? Color.black : .none)
+                    .animation(Animation.spring())
+                }
+                   
+                } else {
+                    Spacer()}
                 
                 // Add New Goal
                 Button(action: {
@@ -86,7 +93,7 @@ struct GameGoalsDetail: View {
                     .foregroundColor(Color.gold)
                 }
                 
-        }
+        }.environment(\.editMode, .constant(self.model.showingEdit ? EditMode.active : EditMode.inactive))
     }
 }
 
