@@ -36,6 +36,7 @@ struct GameGoalsDetail: View {
     var body: some View {
             VStack {
                 Section {
+                    // Show game info unless being edited
                     if !self.model.showingEdit {
                         Text(self.game.gameName ?? "Unknown Game").font(Font.custom("PressStart2p", size: 20))
                         .foregroundColor(Color.gold)
@@ -45,6 +46,7 @@ struct GameGoalsDetail: View {
                     } else {
                         EditGameView(model: EditViewModel(game: game))
                     }
+                    // Edit Game Info Button
                     Button(action: {
                         self.model.showingEdit.toggle()
                     }) {
@@ -65,6 +67,7 @@ struct GameGoalsDetail: View {
                     .environment(\.managedObjectContext, self.moc)
                     .environment(\.colorScheme, .dark)
                 }
+                // If there are no goals, show add goal instructions, if not show the goals.
                 if !self.game.goalArray.isEmpty {
                     Section {
                         List {
@@ -84,8 +87,8 @@ struct GameGoalsDetail: View {
                             }
                         .listRowBackground(self.colorScheme == .dark ? Color.black : .none)
                         }
-                    
                 } else {
+                    // Instructions for adding a goal.
                     VStack(alignment: .center) {
                         Text("Adventures await, traveler! To begin accomplishing all the things and stuff, tap the \"Add Goal\" button below and we shall begin doing the things!").onTapGesture {
                             self.showingAddGoal.toggle()
@@ -108,7 +111,7 @@ struct GameGoalsDetail: View {
                     }
                 }
                 
-                // Add New Goal
+                // Add New Goal Button
                 Button(action: {
                     self.showingAddGoal.toggle()
                 }) {
