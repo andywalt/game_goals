@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Family: \(family) Font names: \(names)")
         } */
         
+        
         let navigationBarAppearace = UINavigationBar.appearance()
         
         navigationBarAppearace.titleTextAttributes = [.font : UIFont(name: "PressStart2p", size: 20)!, .foregroundColor : UIColor(red: 248/255, green: 189/255, blue: 0/255, alpha: 1.0)]

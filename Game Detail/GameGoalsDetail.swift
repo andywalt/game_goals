@@ -20,7 +20,9 @@ struct GameGoalsDetail: View {
     
     @ObservedObject var model: EditViewModel
     
-    @State var goalGrow = false
+    @State private var goalGrow = false
+    
+    @State var showingEdit: Bool = false
 
     
     init(game: Game) {
@@ -46,12 +48,17 @@ struct GameGoalsDetail: View {
                     Button(action: {
                         self.model.showingEdit.toggle()
                     }) {
+                        Text("Edit Game Info")
+                        .font(.caption)
+                        .foregroundColor(Color.gold)
+                        .underline()
+                        /*
                         if self.model.showingEdit == false {
                             Text("Edit Game Info")
                                 .font(.caption)
                                 .foregroundColor(Color.gold)
                                 .underline()
-                        } else {}
+                        } else {} */
                     }
                 }.sheet(isPresented: self.$showingAddGoal) {
                 AddGoalsView(game: self.game)
@@ -90,7 +97,6 @@ struct GameGoalsDetail: View {
                         .multilineTextAlignment(.center)
                         .lineSpacing(10)
                         .scaleEffect(goalGrow ? 1 : 0.5)
-                       // .animation(Animation.basic(duration: 0.5, curve: .linear).repeatForever(autoreverses: false))
                             .animation(.linear(duration: 1))
                         .onAppear() {
                             self.goalGrow.toggle()
@@ -116,7 +122,9 @@ struct GameGoalsDetail: View {
                     .foregroundColor(Color.black)
                 }
                 
-        }.environment(\.editMode, .constant(self.model.showingEdit ? EditMode.active : EditMode.inactive)).animation(Animation.spring())
+        }
+        // I took this off because it was preventing me from editing the Game Info.
+        //.environment(\.editMode, .constant(self.model.showingEdit ? EditMode.active : EditMode.inactive))
     }
 }
 
@@ -137,5 +145,6 @@ struct GameGoalsDetail_Previews: PreviewProvider {
         goal.goalOfGame = newGame
         
         return GameGoalsDetail(game: newGame).environment(\.managedObjectContext, context)
+            .environment(\.colorScheme, .dark)
     }
 }

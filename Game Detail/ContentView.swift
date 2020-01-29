@@ -15,6 +15,7 @@ struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @FetchRequest(entity: Game.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Game.gameName, ascending: true)]) var games: FetchedResults<Game>
     @State private var showingAddGame = false
+    @State private var showingSettings = false
     
     
     var body: some View {
@@ -26,14 +27,13 @@ struct ContentView: View {
                             NavigationLink(destination: GameGoalsDetail(game: games)) {
                                 VStack(alignment: .leading) {
                                     Text(games.gameName ?? "Unknown Game")
-                                        .font(Font.custom("PressStart2p", size: 20))
-                                        .lineLimit(2)
-                                        .foregroundColor(.gold)
+                                            .font(Font.custom("PressStart2p", size: 20))
+                                            .lineLimit(2)
                                     Text(games.gameDescription ?? "Unknown Game Description")
-                                        .font(Font.custom("ChalkboardSE-Light", size: 15))
-                                        .foregroundColor(Color.gold)
+                                    .font(Font.custom("ChalkboardSE-Light", size: 15))
                                     }
-                                }
+                                
+                                }.foregroundColor(Color.gold)
                                 .listRowBackground(self.colorScheme == .dark ? LinearGradient(gradient: Gradient(colors: [Color.black, Color("darkGray")]), startPoint: .top, endPoint: .bottom) : .none)
                             }.onDelete(perform: self.removeGames)
                         }
@@ -42,23 +42,30 @@ struct ContentView: View {
                             Button(action: {
                                     self.showingAddGame.toggle()
                                 }) {
-                                    Text("Add")
-                                        
+                                    Image(systemName: "plus")
                                         .padding(10)
-                                        .background(LinearGradient(gradient: Gradient(colors: [Color.gold, Color.yellow, Color.gold]), startPoint: .top, endPoint: .bottom))
-                                        .cornerRadius(5.0)
-                                        .foregroundColor(Color.black)
+                                        .foregroundColor(Color.gold)
                                         
                             }
                             .sheet(isPresented: self.$showingAddGame) {
                                     AddGameView().environment(\.managedObjectContext, self.moc)
                             }
                         }, trailing:
-                            EditButton()
+                            Button(action: {
+                                self.showingSettings.toggle()
+                            }) {
+                                Image(systemName: "gear")
+                                    .foregroundColor(Color.gold)
+                                    .padding(10)
+                            }
+                            .sheet(isPresented: self.$showingSettings) {
+                                SettingsView().environment(\.managedObjectContext, self.moc)
+                            }
+                            /* EditButton()
                                 .padding(10)
                                 .background(LinearGradient(gradient: Gradient(colors: [Color.gold, Color.yellow, Color.gold]), startPoint: .top, endPoint: .bottom))
                                 .cornerRadius(5.0)
-                                .foregroundColor(Color.black)
+                                .foregroundColor(Color.black) */
                     )
                     
                 } else {
@@ -79,6 +86,30 @@ struct ContentView: View {
                         .sheet(isPresented: self.$showingAddGame) {
                                 AddGameView().environment(\.managedObjectContext, self.moc)
                         }
+                        .navigationBarItems(leading:
+                            HStack {
+                                Button(action: {
+                                    self.showingAddGame.toggle()
+                                }) {
+                                    Image(systemName: "plus")
+                                        .padding(10)
+                                        .foregroundColor(Color.gold)
+                                        
+                            }
+                            .sheet(isPresented: self.$showingAddGame) {
+                                    AddGameView().environment(\.managedObjectContext, self.moc)
+                            }
+                        }, trailing:
+                            Button(action: {
+                                self.showingSettings.toggle()
+                            }) {
+                                Image(systemName: "gear")
+                                    .foregroundColor(Color.gold)
+                                    .padding(10)
+                            }
+                            .sheet(isPresented: self.$showingSettings) {
+                                SettingsView().environment(\.managedObjectContext, self.moc)
+                            })
                     }
                 }
             }
@@ -86,7 +117,7 @@ struct ContentView: View {
                 Image("Game Goals App Logo")
                 .resizable()
                 .frame(width: 100, height: 100)
-                .offset(x: 0, y: -25)
+                .offset(x: 0, y: -30)
                 Spacer()
             }
         }

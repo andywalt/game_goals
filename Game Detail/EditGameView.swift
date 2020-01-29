@@ -53,6 +53,7 @@ struct EditGameView: View {
                             try self.moc.save()
                             self.model.showingEdit = false
                             
+                            
                         } catch {
                             print(error.localizedDescription)
                             

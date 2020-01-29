@@ -27,13 +27,18 @@ struct GameGoalListView: View {
         VStack {
             HStack {
                 VStack(alignment: .leading) {
-                    if goal.goalComplete == true {
-                        Text(goal.goalName ?? "No Goal Name")
-                            .strikethrough()
-                            .foregroundColor(Color.yellow)
-                    } else {
-                        Text(goal.goalName ?? "No Goal Name")
-                            .foregroundColor(Color.yellow)
+                    HStack {
+                        Image("coin")
+                            .resizable()
+                            .frame(width: 10, height: 10)
+                        if goal.goalComplete == true {
+                            Text(goal.goalName ?? "No Goal Name")
+                                .strikethrough()
+                                .foregroundColor(Color.yellow)
+                        } else {
+                            Text(goal.goalName ?? "No Goal Name")
+                                .foregroundColor(Color.yellow)
+                        }
                     }
                     Text("Goal added: \(goal.goalCreatedDate ?? Date(), formatter: self.taskDateFormat)")
                         .font(.footnote)

@@ -20,6 +20,7 @@ struct AddGoalsView: View {
     @State private var goalName = ""
     @State private var goalDifficulty = "Easy Mode"
     
+    
     let difficulties = ["Easy Mode", "Meh", "Help Me God"]
     
     @ObservedObject var game: Game
@@ -32,19 +33,18 @@ struct AddGoalsView: View {
                     
                     HStack {
                         Spacer()
-                        Text("Goal Difficulty")
+                        Text("Goal Difficulty").foregroundColor(Color.gold)
                         Spacer()
                     }
                     
                     Picker("Difficulty", selection: $goalDifficulty) {
                         ForEach(difficulties, id:\.self) {
-                            Text($0)
-                        }
+                            Text($0).foregroundColor(Color.gold)
+                        }.foregroundColor(Color.gold)
                     }.pickerStyle(SegmentedPickerStyle())
-                    
-                }
-                VStack {
+                        .foregroundColor(Color.gold)
                     HStack {
+                        Spacer()
                         Button(action: {
                             guard self.goalName != "" else {return}
                             let newGoal = Goal(context: self.moc)
@@ -70,11 +70,7 @@ struct AddGoalsView: View {
                             .background(LinearGradient(gradient: Gradient(colors: [Color.gold, Color.yellow, Color.gold]), startPoint: .top, endPoint: .bottom))
                             .cornerRadius(5.0)
                             .foregroundColor(Color.black)
-                            .offset(x: 0, y: -200)
-                        
                     }
-                    Spacer()
-                    
                 }
             }
         .navigationBarTitle("Add Game Goal", displayMode: .inline)
