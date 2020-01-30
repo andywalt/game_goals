@@ -24,6 +24,8 @@ struct GameGoalsDetail: View {
     
     @State var showingEdit: Bool = false
     
+    //Added the below things because of a StackOverflow article about "How to update @FetchRequest, when a related Entity changes in SwiftUI?"
+    
     @State private var refreshing = false
     
     private var didSave = NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
@@ -61,7 +63,7 @@ struct GameGoalsDetail: View {
                         .font(.caption)
                         .foregroundColor(Color.gold)
                         .underline()
-                        /*
+                        /* Took this out because it wasn't working properly and was making the UI buggy.
                         if self.model.showingEdit == false {
                             Text("Edit Game Info")
                                 .font(.caption)
