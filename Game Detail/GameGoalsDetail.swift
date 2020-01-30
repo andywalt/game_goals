@@ -23,6 +23,13 @@ struct GameGoalsDetail: View {
     @State private var goalGrow = false
     
     @State var showingEdit: Bool = false
+    
+    @State private var refreshing = false
+    
+    private var didSave = NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
+    
+    // trying to create a state to monitor for the goalArray but I think I can just work with ObservedObject var game: Game
+    // @State var gameGoals: [game.goalArray]
 
     
     init(game: Game) {
@@ -84,7 +91,12 @@ struct GameGoalsDetail: View {
                                             print(error)
                                         }
                                     }
+                                // Trying to set it up so that when a goal is completed, it refreshes the goal list with the storting so goals are moved around.
+                                .onReceive(self.didSave) { _ in
+                                        self.refreshing.toggle()
+                                        }
                             }
+                        
                         .listRowBackground(self.colorScheme == .dark ? Color.black : .none)
                         }
                 } else {
@@ -126,6 +138,12 @@ struct GameGoalsDetail: View {
                 }
                 
         }
+        /*
+        func reloadGoals() {
+            @FetchRequest(entity: Game.entity(), sortDescriptors: []) var games: FetchedResults<Game>
+        }
+ 
+        */
         // I took this off because it was preventing me from editing the Game Info.
         //.environment(\.editMode, .constant(self.model.showingEdit ? EditMode.active : EditMode.inactive))
     }
