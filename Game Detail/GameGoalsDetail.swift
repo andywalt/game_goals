@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-
+import Combine
 
 struct GameGoalsDetail: View {
     @Environment(\.managedObjectContext) var moc
@@ -24,24 +24,30 @@ struct GameGoalsDetail: View {
     
     @State var showingEdit: Bool = false
     
-    //Added the below things because of a StackOverflow article about "How to update @FetchRequest, when a related Entity changes in SwiftUI?"
-    
-    @State private var refreshing = false
-    
+    // I don't like their solution. Flipping a @State bool feela like a bit of an antipattern to me
+    // Since you're using a publisher anyway, lets use Combine :)
     private var didSave = NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
-    
-    // trying to create a state to monitor for the goalArray but I think I can just work with ObservedObject var game: Game
-    // @State var gameGoals: [game.goalArray]
 
+    // The subscription (Combine terminology for an active connection between two objects) needs to be stored somewhere otherwise ARC (Automatic Reference Counting) will trash it to save memory. Putting it into this set means its held somewhere and we can keep receiving values
+    private var cancellables = Set<AnyCancellable>()
     
     init(game: Game) {
         self.game = game
         self.model = EditViewModel(game: game)
-    
+        
+        // Publishers won't actually publish values unless there's a subscriber demanding them.
+        // sink is a subscriber. Here we are saying "When this class is initialised, make a sink subscriber which subscribes to the didSave publisher"
+        // Here we don't actually care what the notification is telling us about the save operation, we just care that it happened. So we can drop the value in the trailing closure and just use _ in and use it as a trigger.
+        didSave.sink { _ in
+            // When this closure is triggered by a notification arriving in the sink, we send a ping to game's objectWillChange property (another publisher!). This triggers game to tell the view to refresh.
+            game.objectWillChange.send()
+        }
+            // store this subscription in the cancellables set to make sure it can hang around as long as this struct exists
+    .store(in: &cancellables)
     
     }
 
-    
+    /* Will add some general tips too*/
     var body: some View {
             VStack {
                 Section {
@@ -84,7 +90,10 @@ struct GameGoalsDetail: View {
                                     GameGoalListView(goal: goal)
                                     }
                                     .onDelete { index in
-                                        let deleteGoal = self.game.goalArray[index.first ?? 0]
+                                        let deleteGoal = self.game.goalArray[index.first ?? 0] // <- this is a trap! If first reveals nil here it means the index array is empty. If you tell it "Give me the value from index 0 what you're telling it is "Delete the first Goal on the list, even if its not the one the user swiped on. It's tricky because you're working with two arrays in one expression there, goalArray is (obviously) an array, but index is another array, an array of 'pointers' to values within the other array, goalArray.
+                                        
+                                        // This should never be nil, as onDelete would never give you an empty index array. You could force unwrap here, but if you prefer to explicitely unwrap this safely without a trap you could try
+                                        // guard let deleteGoal = self.game.goalArray[index.first] else { return }
                                         self.moc.delete(deleteGoal)
                                         
                                         do {
@@ -93,10 +102,6 @@ struct GameGoalsDetail: View {
                                             print(error)
                                         }
                                     }
-                                // Trying to set it up so that when a goal is completed, it refreshes the goal list with the storting so goals are moved around.
-                                .onReceive(self.didSave) { _ in
-                                        self.refreshing.toggle()
-                                        }
                             }
                         
                         .listRowBackground(self.colorScheme == .dark ? Color.black : .none)
