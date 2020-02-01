@@ -27,7 +27,7 @@ struct SettingsView: View {
                         .padding(.all, 10)
                         .background(LinearGradient(gradient: Gradient(colors: [Color.black, Color("darkGray")]), startPoint: .top, endPoint: .bottom))
                         .cornerRadius(10)
-                        .padding(.trailing, 100)
+                        .padding(.trailing, 50)
                         
                     }
                 }
@@ -53,7 +53,7 @@ struct SettingsView: View {
                     .padding(.all, 10)
                     .background(LinearGradient(gradient: Gradient(colors: [Color.black, Color("darkGray")]), startPoint: .top, endPoint: .bottom))
                     .cornerRadius(10)
-                    .padding(.trailing, 100)
+                    .padding(.trailing, 50)
                     Button(action: {
                         UIApplication.shared.open(URL(string: "https://twitter.com/andywalt")!)
                     }) {
@@ -68,7 +68,7 @@ struct SettingsView: View {
                     .padding(.all, 10)
                     .background(LinearGradient(gradient: Gradient(colors: [Color.black, Color("darkGray")]), startPoint: .top, endPoint: .bottom))
                     .cornerRadius(10)
-                    .padding(.trailing, 100)
+                    .padding(.trailing, 50)
                 }
                 .foregroundColor(Color.gray)
                 .padding(.leading, 30)
@@ -84,7 +84,7 @@ struct SettingsView: View {
                         .padding(.all, 10)
                         .background(LinearGradient(gradient: Gradient(colors: [Color.black, Color("darkGray")]), startPoint: .top, endPoint: .bottom))
                         .cornerRadius(10)
-                        .padding(.trailing, 100)
+                        .padding(.trailing, 50)
                     }
                         
                         Button(action: {
@@ -101,11 +101,12 @@ struct SettingsView: View {
                         .padding(.all, 10)
                         .background(LinearGradient(gradient: Gradient(colors: [Color.black, Color("darkGray")]), startPoint: .top, endPoint: .bottom))
                         .cornerRadius(10)
-                        .padding(.trailing, 100)
+                        .padding(.trailing, 50)
                 }
                 .foregroundColor(Color.gray)
                 .padding(.leading, 30)
-                }.offset(x: 0, y: -10)
+                Spacer()
+            }.padding(.top, 50)
             .navigationBarTitle("Settings", displayMode: .inline)
             .navigationBarItems(trailing:
                 Button(action: {

@@ -18,6 +18,8 @@ struct ContentView: View {
     @State private var showingSettings = false
     
     
+    
+    
     var body: some View {
         ZStack {
             NavigationView {
@@ -33,9 +35,11 @@ struct ContentView: View {
                                     .font(Font.custom("ChalkboardSE-Light", size: 15))
                                     }
                                 
-                                }.foregroundColor(Color.gold)
+                                }
+                                .foregroundColor(Color.gold)
                                 .listRowBackground(self.colorScheme == .dark ? LinearGradient(gradient: Gradient(colors: [Color.black, Color("darkGray")]), startPoint: .top, endPoint: .bottom) : .none)
-                            }.onDelete(perform: self.removeGames)
+                            }
+                            .onDelete(perform: self.removeGames)
                         }
                     .navigationBarItems(leading:
                         HStack {

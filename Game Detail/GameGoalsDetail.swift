@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Combine
 
 
 struct GameGoalsDetail: View {
@@ -24,19 +25,21 @@ struct GameGoalsDetail: View {
     
     @State var showingEdit: Bool = false
     
-    //Added the below things because of a StackOverflow article about "How to update @FetchRequest, when a related Entity changes in SwiftUI?"
-    
-    @State private var refreshing = false
-    
     private var didSave = NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
     
-    // trying to create a state to monitor for the goalArray but I think I can just work with ObservedObject var game: Game
-    // @State var gameGoals: [game.goalArray]
+    private var cancellables = Set<AnyCancellable>()
+
 
     
     init(game: Game) {
         self.game = game
         self.model = EditViewModel(game: game)
+        
+        didSave.sink { _ in
+            game.objectWillChange.send()
+        }
+        
+    .store(in: &cancellables)
     
     
     }
@@ -84,7 +87,7 @@ struct GameGoalsDetail: View {
                                     GameGoalListView(goal: goal)
                                     }
                                     .onDelete { index in
-                                        let deleteGoal = self.game.goalArray[index.first ?? 0]
+                                        let deleteGoal = self.game.goalArray[index.first!]
                                         self.moc.delete(deleteGoal)
                                         
                                         do {
@@ -93,10 +96,6 @@ struct GameGoalsDetail: View {
                                             print(error)
                                         }
                                     }
-                                // Trying to set it up so that when a goal is completed, it refreshes the goal list with the storting so goals are moved around.
-                                .onReceive(self.didSave) { _ in
-                                        self.refreshing.toggle()
-                                        }
                             }
                         
                         .listRowBackground(self.colorScheme == .dark ? Color.black : .none)

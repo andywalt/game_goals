@@ -9,9 +9,35 @@
 import SwiftUI
 
 struct InfoStory: View {
+    
+    @State private var scrollText = false
+    
     var body: some View {
-        Text("Andy wanted to make an app of his dreams so he started by making an app he could use to play video games with better. Cool go team!!")
+        GeometryReader { geometry in
+            ZStack {
+                VStack {
+                    Text("A long time ago, Andy was chasing some dreams and doing all the things and then he got sick. He had to step away from his job and didn't know what life was going to look like. He started applying for jobs but couldn't find anything so in between applying, he learned to code. Game Goals is the result of wanting to make something useful for gamers everywhere! I hope you enjoy!")
+                        .bold()
+                        .lineSpacing(25)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(Color.gold)
+                        .padding(.horizontal, 50)
+                        .offset(y: self.scrollText ? 0 : 700)
+                        .animation(Animation.linear(duration: 8))
+                        .onAppear() {
+                                self.scrollText.toggle()
+                        }
+                        
+                }
+            }.background(Rectangle()
+                .fill(LinearGradient(gradient: Gradient(colors: [Color.black, Color("darkGray")]), startPoint: .top, endPoint: .bottom))
+                .aspectRatio(geometry.size, contentMode: .fill))
+        }
+        .environment(\.colorScheme, .dark)
+        
     }
+
+    
 }
 
 struct InfoStory_Previews: PreviewProvider {

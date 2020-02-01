@@ -10,13 +10,23 @@ import SwiftUI
 
 struct ProposedFeaturesView: View {
     
-    let featuresList = ["Adding Sorting Selections", "Cloud Sync", "User Functions"]
+    let featuresData: [Feature] =
+        [Feature(image: "coin", feature: "Adding Sorting Selections"),
+        Feature(image: "coin", feature: "Cloud Sync"),
+        Feature(image: "coin", feature: "User Profiles"),
+        Feature(image: "coin", feature: "AutoComplete Games & Goals"),
+        Feature(image: "coin", feature: "More to Come!")]
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(featuresList, id:\.self) { feature in
-                    Text(feature).foregroundColor(Color.gold)
+            List(featuresData) { feature in
+                HStack {
+                    Image(feature.image)
+                        .resizable()
+                        .frame(width: 15, height: 15)
+                        .padding(.leading, 5)
+                    Text(feature.feature).foregroundColor(Color.gold)
+                        .padding(5)
                 }
             }
             .navigationBarTitle("Proposed Features", displayMode: .inline)
@@ -24,6 +34,12 @@ struct ProposedFeaturesView: View {
         
         .environment(\.colorScheme, .dark)
     }
+}
+
+struct Feature: Identifiable {
+    var id = UUID()
+    var image: String
+    var feature: String
 }
 
 struct ProposedFeaturesView_Previews: PreviewProvider {
