@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Combine
 
 
 struct GameGoalsDetail: View {
@@ -23,11 +24,21 @@ struct GameGoalsDetail: View {
     @State private var goalGrow = false
     
     @State var showingEdit: Bool = false
+    
+    private var didSave = NotificationCenter.default.publisher(for: .NSManagedObjectContextDidSave)
+    
+    private var cancellables = Set<AnyCancellable>()
 
     
     init(game: Game) {
         self.game = game
         self.model = EditViewModel(game: game)
+        
+        didSave.sink { _ in
+                game.objectWillChange.send()
+            }
+            
+    .store(in: &cancellables)
     
     
     }
@@ -75,7 +86,7 @@ struct GameGoalsDetail: View {
                                     GameGoalListView(goal: goal)
                                     }
                                     .onDelete { index in
-                                        let deleteGoal = self.game.goalArray[index.first ?? 0]
+                                        let deleteGoal = self.game.goalArray[index.first!]
                                         self.moc.delete(deleteGoal)
                                         
                                         do {
@@ -126,8 +137,6 @@ struct GameGoalsDetail: View {
                 }
                 
         }
-        // I took this off because it was preventing me from editing the Game Info.
-        //.environment(\.editMode, .constant(self.model.showingEdit ? EditMode.active : EditMode.inactive))
     }
 }
 

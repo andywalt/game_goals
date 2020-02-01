@@ -12,10 +12,16 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var moc
+    
     @Environment(\.colorScheme) var colorScheme: ColorScheme
+    
     @FetchRequest(entity: Game.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \Game.gameName, ascending: true)]) var games: FetchedResults<Game>
+    
     @State private var showingAddGame = false
+    
     @State private var showingSettings = false
+    
+    @State private var pulsing = false
     
     
     var body: some View {
@@ -61,26 +67,26 @@ struct ContentView: View {
                             .sheet(isPresented: self.$showingSettings) {
                                 SettingsView().environment(\.managedObjectContext, self.moc)
                             }
-                            /* EditButton()
-                                .padding(10)
-                                .background(LinearGradient(gradient: Gradient(colors: [Color.gold, Color.yellow, Color.gold]), startPoint: .top, endPoint: .bottom))
-                                .cornerRadius(5.0)
-                                .foregroundColor(Color.black) */
                     )
                     
                 } else {
                     VStack {
                         Text("Let's add some games!")
                             .foregroundColor(Color.gold)
+                            .padding(.bottom, 15)
                         Button(action: {
                                 self.showingAddGame.toggle()
                             }) {
                                 Text("Add")
-                                    
                                     .padding(10)
                                     .background(LinearGradient(gradient: Gradient(colors: [Color.gold, Color.yellow, Color.gold]), startPoint: .top, endPoint: .bottom))
                                     .cornerRadius(5.0)
                                     .foregroundColor(Color.black)
+                                    .scaleEffect(pulsing ? 1 : 1.1)
+                                    .animation(Animation.easeInOut(duration: 0.75).repeatForever(autoreverses: true).speed(0.75))
+                                    .onAppear() {
+                                        self.pulsing.toggle()
+                                }
                                     
                         }
                         .sheet(isPresented: self.$showingAddGame) {

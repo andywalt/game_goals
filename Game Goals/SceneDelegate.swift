@@ -1,6 +1,6 @@
 //
 //  SceneDelegate.swift
-//  Game Detail
+//  Game Goals
 //
 //  Created by Andy Walters on 12/11/19.
 //  Copyright © 2019 Andy Walt. All rights reserved.

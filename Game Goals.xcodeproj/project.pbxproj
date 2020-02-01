@@ -20,7 +20,7 @@
 		F5B8BD6123A2276700173802 /* Goal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B8BD5D23A2276700173802 /* Goal+CoreDataProperties.swift */; };
 		F5E28CC223A1ADFA006D4A3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E28CC123A1ADFA006D4A3C /* AppDelegate.swift */; };
 		F5E28CC423A1ADFA006D4A3C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E28CC323A1ADFA006D4A3C /* SceneDelegate.swift */; };
-		F5E28CC723A1ADFA006D4A3C /* Game_Detail.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F5E28CC523A1ADFA006D4A3C /* Game_Detail.xcdatamodeld */; };
+		F5E28CC723A1ADFA006D4A3C /* Game_Goals.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F5E28CC523A1ADFA006D4A3C /* Game_Goals.xcdatamodeld */; };
 		F5E28CC923A1ADFA006D4A3C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E28CC823A1ADFA006D4A3C /* ContentView.swift */; };
 		F5E28CCB23A1ADFB006D4A3C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5E28CCA23A1ADFB006D4A3C /* Assets.xcassets */; };
 		F5E28CCE23A1ADFB006D4A3C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5E28CCD23A1ADFB006D4A3C /* Preview Assets.xcassets */; };
@@ -70,7 +70,7 @@
 		F5E28CB523A1ADFA006D4A3C = {
 			isa = PBXGroup;
 			children = (
-				F5E28CC023A1ADFA006D4A3C /* Game Detail */,
+				F5E28CC023A1ADFA006D4A3C /* Game Goals */,
 				F5E28CBF23A1ADFA006D4A3C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -83,7 +83,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F5E28CC023A1ADFA006D4A3C /* Game Detail */ = {
+		F5E28CC023A1ADFA006D4A3C /* Game Goals */ = {
 			isa = PBXGroup;
 			children = (
 				F52A577123D6C368000EE725 /* Custom Styling.swift */,
@@ -106,10 +106,10 @@
 				F573CC1523E0D48600295DFD /* SettingsView.swift */,
 				F573CC1923E0FD3D00295DFD /* ProposedFeaturesView.swift */,
 				F573CC1723E0DEFB00295DFD /* InfoStory.swift */,
-				F5E28CC523A1ADFA006D4A3C /* Game_Detail.xcdatamodeld */,
+				F5E28CC523A1ADFA006D4A3C /* Game_Goals.xcdatamodeld */,
 				F5E28CCC23A1ADFB006D4A3C /* Preview Content */,
 			);
-			path = "Game Detail";
+			path = "Game Goals";
 			sourceTree = "<group>";
 		};
 		F5E28CCC23A1ADFB006D4A3C /* Preview Content */ = {
@@ -123,9 +123,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F5E28CBD23A1ADFA006D4A3C /* Game Detail */ = {
+		F5E28CBD23A1ADFA006D4A3C /* Game Goals */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F5E28CD523A1ADFB006D4A3C /* Build configuration list for PBXNativeTarget "Game Detail" */;
+			buildConfigurationList = F5E28CD523A1ADFB006D4A3C /* Build configuration list for PBXNativeTarget "Game Goals" */;
 			buildPhases = (
 				F5E28CBA23A1ADFA006D4A3C /* Sources */,
 				F5E28CBB23A1ADFA006D4A3C /* Frameworks */,
@@ -135,7 +135,7 @@
 			);
 			dependencies = (
 			);
-			name = "Game Detail";
+			name = "Game Goals";
 			productName = "Game Detail";
 			productReference = F5E28CBE23A1ADFA006D4A3C /* Game Goals.app */;
 			productType = "com.apple.product-type.application";
@@ -155,7 +155,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F5E28CB923A1ADFA006D4A3C /* Build configuration list for PBXProject "Game Detail" */;
+			buildConfigurationList = F5E28CB923A1ADFA006D4A3C /* Build configuration list for PBXProject "Game Goals" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -168,7 +168,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F5E28CBD23A1ADFA006D4A3C /* Game Detail */,
+				F5E28CBD23A1ADFA006D4A3C /* Game Goals */,
 			);
 		};
 /* End PBXProject section */
@@ -196,7 +196,7 @@
 				F5B8BD5F23A2276700173802 /* Game+CoreDataProperties.swift in Sources */,
 				F52A577223D6C368000EE725 /* Custom Styling.swift in Sources */,
 				F50722D623BE910B00DEE573 /* GameGoalListView.swift in Sources */,
-				F5E28CC723A1ADFA006D4A3C /* Game_Detail.xcdatamodeld in Sources */,
+				F5E28CC723A1ADFA006D4A3C /* Game_Goals.xcdatamodeld in Sources */,
 				F5B8BD6023A2276700173802 /* Goal+CoreDataClass.swift in Sources */,
 				F5E28CC223A1ADFA006D4A3C /* AppDelegate.swift in Sources */,
 				F573CC1823E0DEFB00295DFD /* InfoStory.swift in Sources */,
@@ -345,9 +345,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Game Detail/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Game Goals/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "Game Detail/Info.plist";
+				INFOPLIST_FILE = "Game Goals/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -364,9 +364,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Game Detail/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Game Goals/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "Game Detail/Info.plist";
+				INFOPLIST_FILE = "Game Goals/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -381,7 +381,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F5E28CB923A1ADFA006D4A3C /* Build configuration list for PBXProject "Game Detail" */ = {
+		F5E28CB923A1ADFA006D4A3C /* Build configuration list for PBXProject "Game Goals" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F5E28CD323A1ADFB006D4A3C /* Debug */,
@@ -390,7 +390,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F5E28CD523A1ADFB006D4A3C /* Build configuration list for PBXNativeTarget "Game Detail" */ = {
+		F5E28CD523A1ADFB006D4A3C /* Build configuration list for PBXNativeTarget "Game Goals" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F5E28CD623A1ADFB006D4A3C /* Debug */,
@@ -402,13 +402,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		F5E28CC523A1ADFA006D4A3C /* Game_Detail.xcdatamodeld */ = {
+		F5E28CC523A1ADFA006D4A3C /* Game_Goals.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				F5E28CC623A1ADFA006D4A3C /* Game_Detail.xcdatamodel */,
 			);
 			currentVersion = F5E28CC623A1ADFA006D4A3C /* Game_Detail.xcdatamodel */;
-			path = Game_Detail.xcdatamodeld;
+			path = Game_Goals.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
