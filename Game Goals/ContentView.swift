@@ -35,8 +35,13 @@ struct ContentView: View {
                                     Text(games.gameName ?? "Unknown Game")
                                             .font(Font.custom("PressStart2p", size: 20))
                                             .lineLimit(2)
-                                    Text(games.gameDescription ?? "Unknown Game Description")
-                                    .font(Font.custom("ChalkboardSE-Light", size: 15))
+                                    HStack {
+                                        Text(games.gameGenre ?? "Unknown Game Genre")
+                                            .font(Font.custom("ChalkboardSE-Light", size: 15))
+                                        Text("-")
+                                        Text(games.gamePlatform ?? "Unknown Game Platform")
+                                            .font(Font.custom("ChalkboardSE-Light", size: 15))
+                                        }
                                     }
                                 
                                 }.foregroundColor(Color.gold)
@@ -146,7 +151,8 @@ struct ContentView_Previews: PreviewProvider {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         let newGame = Game(context: context)
         newGame.gameName = "Apex Legends"
-        newGame.gameDescription = "Maybe this will work"
+        newGame.gameGenre = "Maybe this will work"
+        newGame.gamePlatform = "Xbox360"
         return ContentView().environment(\.managedObjectContext, context)
             .environment(\.colorScheme, .dark)
     }

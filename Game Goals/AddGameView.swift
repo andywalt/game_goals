@@ -17,21 +17,35 @@ struct AddGameView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @State private var gameName = ""
-    @State private var gameDescription = ""
+    @State private var gameGenre = "Unknown"
+    @State private var gamePlatform = "Unknown"
     @State private var showingAlert = false
+    
+    let platforms = ["XboxOne", "PS4", "PC/Mac", "Mobile", "Nintendo Switch", ]
+    
+    let genres = ["Shooter", "RTS", "MOBA", "RPG", "MMO", "Sports", "Action", "Adventure", "Strategy", "Puzzle", "Racing", "Fighting", ]
     
     var body: some View {
         NavigationView {
             VStack {
                 Form {
                     TextField("Game Name", text: $gameName)
-                    TextField("Game Description", text: $gameDescription)
+                    Picker("Game Genre", selection: $gameGenre) {
+                        ForEach(genres, id:\.self) {
+                            Text($0).foregroundColor(Color.gold)
+                        }.foregroundColor(Color.gold)
+                    }.foregroundColor(Color.gold)
+                    Picker("Game Platform", selection: $gamePlatform) {
+                        ForEach(platforms, id:\.self) {
+                            Text($0).foregroundColor(Color.gold)
+                        }.foregroundColor(Color.gold)
+                    }.foregroundColor(Color.gold)
                     HStack {
                         Spacer()
                         Button(action: {
                             let newGame = Game(context: self.moc)
                             newGame.gameName = self.gameName
-                            newGame.gameDescription = self.gameDescription
+                            newGame.gameGenre = self.gameGenre
                             
                             do {
                                 try self.moc.save()

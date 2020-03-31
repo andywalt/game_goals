@@ -101,7 +101,7 @@ struct AddGoalsView_Previews: PreviewProvider {
         newGoal.goalDifficulty = "Meh"
         newGoal.goalOfGame = Game(context: context)
         newGoal.goalOfGame?.gameName = "Test Game 1"
-        newGoal.goalOfGame?.gameDescription = "Maybe this will work"
+        newGoal.goalOfGame?.gameGenre = "Maybe this will work"
         return AddGoalsView(game: Game()).environment(\.managedObjectContext, context)
             .environment(\.colorScheme, .dark)
     }

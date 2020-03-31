@@ -67,7 +67,7 @@ struct GameGoalListView_Previews: PreviewProvider {
         
         let newGame = Game.init(context: context)
         newGame.gameName = "Testy Game"
-        newGame.gameDescription = "Wooo play the thing"
+        newGame.gameGenre = "Wooo play the thing"
         
         let goal = Goal(context: context)
         goal.goalName = "Try Harder"

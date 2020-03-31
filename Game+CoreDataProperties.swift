@@ -17,7 +17,8 @@ extension Game {
         return NSFetchRequest<Game>(entityName: "Game")
     }
 
-    @NSManaged public var gameDescription: String?
+    @NSManaged public var gamePlatform: String?
+    @NSManaged public var gameGenre: String?
     @NSManaged public var gameName: String?
     @NSManaged public var goal: NSSet?
     
@@ -25,9 +26,15 @@ extension Game {
         gameName ?? "Unknown Game"
     }
     
-    public var wrappedGameDescription: String {
-        gameDescription ?? "Unknown Game Description"
+    public var wrappedGameGenre: String {
+        gameGenre ?? "Unknown Game Genre"
     }
+    
+    public var wrappedGamePlatform: String {
+        gamePlatform ?? "Unknown Game Platform"
+    }
+    
+    
     
     public var goalArray: [Goal] {
         let set = goal as? Set<Goal> ?? []
