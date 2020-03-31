@@ -352,7 +352,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.Game-Goals";
+				PRODUCT_BUNDLE_IDENTIFIER = com.GameGoals;
 				PRODUCT_NAME = "Game Goals";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -371,7 +371,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.Game-Goals";
+				PRODUCT_BUNDLE_IDENTIFIER = com.GameGoals;
 				PRODUCT_NAME = "Game Goals";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
