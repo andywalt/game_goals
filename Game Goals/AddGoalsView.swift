@@ -29,7 +29,7 @@ struct AddGoalsView: View {
         NavigationView {
             VStack {
                 Form {
-                    TextField("Add Game Goal", text: $goalName)
+                    TextField("Add Game Goal", text: $goalName).foregroundColor(Color.gold)
                     
                     HStack {
                         Spacer()
@@ -40,9 +40,8 @@ struct AddGoalsView: View {
                     Picker("Difficulty", selection: $goalDifficulty) {
                         ForEach(difficulties, id:\.self) {
                             Text($0).foregroundColor(Color.gold)
-                        }.foregroundColor(Color.gold)
+                        }
                     }.pickerStyle(SegmentedPickerStyle())
-                        .foregroundColor(Color.gold)
                     HStack {
                         Spacer()
                         Button(action: {
